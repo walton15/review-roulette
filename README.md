@@ -20,7 +20,8 @@ Live site: https://walton15.github.io/smartbutgamecritic/
 | `fakes.json` | Fake reviews written in his style. |
 | `strangers.py` → `strangers.json` | Pool of reviews by other Steam players. |
 | `build.py` | Hides game names and builds `docs/data.json` from everything above. |
-| `cache/` | Cached Steam store lookups (developer and publisher names). Safe to delete. |
+| `cache/` | Cached Steam store lookups (developer/publisher names, image URLs). Committed so the daily refresh can use it. |
+| `.github/workflows/refresh-strangers.yml` | Picks a new pool of other-player reviews every day. |
 
 Requires Python 3.10+ (no extra packages).
 
@@ -105,11 +106,13 @@ After this, `collect_reviews.py` keeps the library in place when it refreshes re
 
 ## Refreshing the decoys
 
-- **Reviews from other players:** `python strangers.py 45` picks a new random pool (45 is
-  how many to collect). It filters out non-English reviews, slurs, ASCII art and junk, and
-  masks profanity with ♥ like Steam does. Skim `strangers.json` afterwards and delete any
-  entries you don't want. Then run `python build.py`. The same name hiding and
-  `redactions.json` rules apply.
+- **Reviews from other players:** a GitHub Action picks a new random pool of 45 every day
+  at 09:17 UTC and commits it. To refresh right away, run it from the repo's **Actions** tab
+  (*Refresh other-player reviews* → *Run workflow*), or locally run `python strangers.py 45`
+  then `python build.py --strangers-only`. It filters out non-English reviews, slurs, ASCII
+  art and junk, masks profanity with ♥ like Steam does, and skips reviews that still hint at
+  the game once the title is hidden (series names, title words, `redactions.json` terms).
+  If Steam returns too few reviews, the old pool is kept.
 - **Fake reviews:** edit `fakes.json`. Each entry is
   `{"recommended": true/false, "text": "..."}`. Write `[GAME TITLE]` where a game name would
   go, so fakes look like his real (redacted) reviews. Run `python build.py`.

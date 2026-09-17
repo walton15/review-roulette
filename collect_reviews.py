@@ -1,4 +1,4 @@
-"""Review Roulette — fetches his public Steam reviews into steam-data.json (no login needed).
+"""SmartButGameCritic — fetches his public Steam reviews into steam-data.json (no login needed).
 
     python collect_reviews.py
 

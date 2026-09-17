@@ -1,4 +1,4 @@
-"""Review Roulette — collects a pool of reviews written by *other* Steam players.
+"""SmartButGameCritic — collects a pool of reviews written by *other* Steam players.
 
     python strangers.py [count]
 

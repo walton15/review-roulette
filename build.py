@@ -1,4 +1,4 @@
-"""Review Roulette — turns steam-data.json into the redacted docs/data.json the site loads.
+"""SmartButGameCritic — turns steam-data.json into the redacted docs/data.json the site loads.
 
     python build.py [steam-data.json]
 

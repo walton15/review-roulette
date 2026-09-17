@@ -1,4 +1,4 @@
-// Review Roulette — data collector.
+// SmartButGameCritic — data collector.
 // Paste into the Firefox console (F12 → Console) while on any steamcommunity.com page,
 // logged into an account that can see the profile below. Downloads steam-data.json.
 (async () => {

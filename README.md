@@ -1,4 +1,4 @@
-# Review Roulette
+# SmartButGameCritic
 
 Read one of SmartButAutistic's Steam reviews with the game's name hidden, then guess the game.
 You get 3 guesses per review. Each game also includes one fake review and one review from

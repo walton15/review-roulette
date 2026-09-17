@@ -1,32 +1,120 @@
 {
   "*": [],
-  "2584270": ["shell", "Isaac"],
-  "2075800": ["Star Wars", "Tel", "Trick", "Coil"],
-  "4628650": ["Cast N Chill"],
-  "2453160": ["Matt Nava", "Journey"],
-  "1875580": ["Mina"],
-  "3768760": ["Bond"],
-  "3341000": ["thick thieves"],
-  "2255370": ["Anders"],
-  "3357650": ["Capcom", "Hugh", "Diana"],
-  "1663850": ["Ironwood"],
-  "3321460": ["Stag Lord", "Abyss"],
-  "3764200": ["Leon", "Grace", "RE"],
-  "2129530": ["LM1", "LM2"],
-  "2394650": ["Crouton"],
-  "1313140": ["Cult"],
-  "2183900": ["Tyranids"],
-  "2947440": ["SH2"],
-  "3017860": ["Doom Guy", "Doom", "Slayer", "Eternal", "id"],
-  "1903340": ["CO: E33", "Sciel", "Clea", "French people", "Andy Serkis", "Ben Starr", "Khazan"],
-  "2060870": ["Eve"],
-  "1750030": ["Roman"],
-  "2680010": ["Reese"],
-  "3061810": ["pirate"],
-  "2124490": ["silent hill"],
-  "2461850": ["Melina Juergens"],
-  "1623940": ["bramb-boozled"],
-  "1374970": ["Grey Irma"],
-  "1370050": ["Devolver"],
-  "774361": ["Exposito", "Lady of the Charred Visage", "Alloy of Sin"]
+  "2584270": [
+    "shell",
+    "Isaac"
+  ],
+  "2075800": [
+    "Star Wars",
+    "Tel",
+    "Trick",
+    "Coil"
+  ],
+  "4628650": [
+    "Cast N Chill"
+  ],
+  "2453160": [
+    "Matt Nava",
+    "Journey"
+  ],
+  "1875580": [
+    "Mina"
+  ],
+  "3768760": [
+    "Bond"
+  ],
+  "3341000": [
+    "thick thieves"
+  ],
+  "2255370": [
+    "Anders"
+  ],
+  "3357650": [
+    "Capcom",
+    "Hugh",
+    "Diana"
+  ],
+  "1663850": [
+    "Ironwood"
+  ],
+  "3321460": [
+    "Stag Lord",
+    "Abyss"
+  ],
+  "3764200": [
+    "Leon",
+    "Grace",
+    "RE"
+  ],
+  "2129530": [
+    "LM1",
+    "LM2"
+  ],
+  "2394650": [
+    "Crouton"
+  ],
+  "1313140": [
+    "Cult"
+  ],
+  "2183900": [
+    "Tyranids"
+  ],
+  "2947440": [
+    "SH2"
+  ],
+  "3017860": [
+    "Doom Guy",
+    "Doom",
+    "Slayer",
+    "Eternal",
+    "id"
+  ],
+  "1903340": [
+    "CO: E33",
+    "Sciel",
+    "Clea",
+    "French people",
+    "Andy Serkis",
+    "Ben Starr",
+    "Khazan"
+  ],
+  "2060870": [
+    "Eve"
+  ],
+  "1750030": [
+    "Roman"
+  ],
+  "2680010": [
+    "Reese"
+  ],
+  "3061810": [
+    "pirate"
+  ],
+  "2124490": [
+    "silent hill"
+  ],
+  "2461850": [
+    "Melina Juergens"
+  ],
+  "1623940": [
+    "bramb-boozled"
+  ],
+  "1374970": [
+    "Grey Irma"
+  ],
+  "1370050": [
+    "Devolver"
+  ],
+  "774361": [
+    "Exposito",
+    "Lady of the Charred Visage",
+    "Alloy of Sin"
+  ],
+  "2997230": [
+    "Lana"
+  ],
+  "2677660": [
+    "Indiana",
+    "Wolfenstein"
+  ]
 }

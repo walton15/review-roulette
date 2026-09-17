@@ -87,6 +87,8 @@ def title_variants(name):
             out.add(" ".join(words[:-1] + [ROMAN[words[-1]]]))
         if words and words[-1] in ROMAN.values():
             out.add(" ".join(words[:-1] + [k for k, n in ROMAN.items() if n == words[-1]]))
+        if v.isupper():
+            out.add(v.title())                       # "SWORN" also matches "Sworn"/"sworn"
         caps = [w for w in words if w[:1].isalnum()]
         if len(caps) >= 3:
             out.add("".join(w[0] for w in caps).upper())  # acronym, matched case-sensitively
@@ -114,6 +116,13 @@ def redact(text, replacements):
     return text
 
 
+def replacements_for(appid, name, details, extra):
+    reps = [(v, TITLE) for v in title_variants(name) | title_variants(details.get("name") or "")]
+    reps += [(v, DEV) for v in company_variants((details.get("developers") or []) + (details.get("publishers") or []))]
+    reps += [(t, HIDDEN) for t in extra.get(str(appid), []) + extra.get("*", [])]
+    return reps
+
+
 def main():
     src = Path(sys.argv[1] if len(sys.argv) > 1 else ROOT / "steam-data.json")
     raw = json.loads(src.read_text("utf8"))
@@ -134,22 +143,34 @@ def main():
         text = r["text"].strip()
         if len(text) < 3:
             continue
-        reps = [(v, TITLE) for v in title_variants(name) | title_variants(d.get("name") or "")]
-        reps += [(v, DEV) for v in company_variants((d.get("developers") or []) + (d.get("publishers") or []))]
-        reps += [(t, HIDDEN) for t in extra.get(str(r["appid"]), []) + extra.get("*", [])]
         reviews.append({
             "appid": r["appid"], "name": name, "recommended": r["recommended"],
-            "hours": r["hours"], "url": r["url"], "text": redact(text, reps),
+            "hours": r["hours"], "url": r["url"], "text": redact(text, replacements_for(r["appid"], name, d, extra)),
         })
 
     # Distractor pool: his library, plus reviewed games in case the library list is missing any.
     pool = dict(library)
     for rv in reviews:
         pool.setdefault(rv["appid"], rv["name"])
-    out = {"profile": raw.get("profile"), "reviews": reviews,
+    # Decoys: AI-written fakes in his style (fakes.json) and other players' reviews (strangers.json, from strangers.py).
+    fakes = json.loads((ROOT / "fakes.json").read_text("utf8")) if (ROOT / "fakes.json").exists() else []
+    strangers = []
+    for s in json.loads((ROOT / "strangers.json").read_text("utf8")) if (ROOT / "strangers.json").exists() else []:
+        d = details.get(str(s["appid"]), {})
+        name = pool.get(s["appid"]) or clean(d.get("name")) or clean(d.get("fallback_name"))
+        if name:
+            strangers.append({**s, "name": name, "text": redact(s["text"], replacements_for(s["appid"], name, d, extra))})
+
+    out = {"profile": raw.get("profile"), "reviews": reviews, "fakes": fakes, "strangers": strangers,
            "games": [{"appid": a, "name": n} for a, n in sorted(pool.items(), key=lambda kv: kv[1].lower())]}
-    (ROOT / "docs" / "data.json").write_text(json.dumps(out, ensure_ascii=False, indent=1), "utf8")
-    print(f"Wrote docs/data.json: {len(reviews)} reviews, {len(pool)} games in the answer pool")
+    target = ROOT / "docs" / "data.json"
+    before = {r["appid"] for r in json.loads(target.read_text("utf8"))["reviews"]} if target.exists() else set()
+    target.write_text(json.dumps(out, ensure_ascii=False, indent=1), "utf8")
+    for rv in reviews:
+        if before and rv["appid"] not in before:
+            print(f"  NEW  {rv['appid']} {rv['name']}: check for giveaways -> {rv['text'][:300]!r}")
+    print(f"Wrote docs/data.json: {len(reviews)} reviews, {len(pool)} games in the answer pool, "
+          f"{len(fakes)} fakes, {len(strangers)} other-player reviews")
 
 
 if __name__ == "__main__":

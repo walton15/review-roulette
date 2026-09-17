@@ -95,6 +95,13 @@
   @keyframes fall-r { 15% { transform: translate(2px, -1px) rotate(12deg); opacity: 1; } 100% { transform: translate(9px, 22px) rotate(55deg); opacity: 0; } }
   @keyframes beat { 0%, 60%, 100% { transform: scale(1); } 15% { transform: scale(1.18); } 30% { transform: scale(.96); } 45% { transform: scale(1.1); } }
   @keyframes won { 40% { transform: scale(1.35) translateY(-3px); } }
+  .special-row { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
+  .special { flex: 1 1 160px; padding: 11px 14px; font-size: 14px; color: var(--muted); }
+  .special:disabled { cursor: default; opacity: .5; }
+  .special.wrong { border-color: #ff5c6c66; color: var(--bad); text-decoration: line-through; }
+  .special.correct { border-color: var(--good); color: var(--good); background: #3ecf8e17; opacity: 1; }
+  .fake-art { aspect-ratio: 460/215; border-radius: 10px; display: grid; place-items: center; font-size: 56px; background: repeating-linear-gradient(45deg, var(--panel-2) 0 12px, var(--panel) 12px 24px); }
+  .caught { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin: -14px 0 28px; }
   .tried { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 0; padding: 0; list-style: none; }
   .tried li { font-size: 13px; font-weight: 600; color: var(--bad); background: #ff5c6c17; border: 1px solid #ff5c6c44; border-radius: 999px; padding: 3px 10px 3px 8px; text-decoration: line-through; text-decoration-color: #ff5c6c99; animation: pop .25s ease-out; }
   @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; } .heart.broken .half { opacity: 0; } }
@@ -134,6 +141,7 @@
 <script>
 const PLAYER = 'SmartButAutistic';
 const LIVES = 3;
+const SPECIAL = { fake: { special: 'fake', name: 'Fake Review' }, stranger: { special: 'stranger', name: 'Not Sam Review' } };
 const img = (appid, kind) => `https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/${appid}/${kind}.jpg`;
 const $ = s => document.querySelector(s);
 const esc = s => s.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -149,19 +157,27 @@ function intro() {
   $('#hud').hidden = true;
   const n = DATA.reviews.length;
   const modes = [10, 25].filter(m => m < n).map(m => `<button class="btn${m === 10 ? ' primary' : ''}" data-n="${m}">${m} rounds</button>`).join('');
+  const decoys = (DATA.fakes?.length ? 1 : 0) + (DATA.strangers?.length ? 1 : 0);
   const best = store.get('rr-best', null);
   $('#app').innerHTML = `
     <section class="hero">
       <h1>Which game is<br><em>${esc(PLAYER)}</em> talking about?</h1>
-      <p>${n} real Steam reviews where the game's name is swapped for <span class="tag">GAME TITLE</span>. Search his library and guess which game he's talking about. You get ${LIVES} tries per review.</p>
-      <div class="modes">${modes}<button class="btn${modes ? '' : ' primary'}" data-n="${n}">All ${n}</button></div>
+      <p>${n} real ${esc(PLAYER)} Steam reviews where the game's name is hidden. Search his library and guess which game he's talking about. You get ${LIVES} tries per review.</p>
+      <p style="margin-top:-18px">Watch out: every game sneaks in one <b style="color:var(--text)">AI-written fake</b> and one review from <b style="color:var(--text)">another Steam player</b>. Call them out with the <b style="color:var(--text)">Fake Review</b> and <b style="color:var(--text)">Not Sam Review</b> buttons.</p>
+      <div class="modes">${modes}<button class="btn${modes ? '' : ' primary'}" data-n="${n + decoys}">All ${n}</button></div>
       <p class="fine">Type to search, ↑↓ and Enter to pick, Enter again for the next review.${best ? ` · Your best: ${best.score}/${best.total}` : ''}</p>
     </section>`;
   $('#app').querySelectorAll('[data-n]').forEach(b => b.onclick = () => start(+b.dataset.n));
 }
 
 function start(total) {
-  game = { rounds: shuffle(DATA.reviews).slice(0, total), i: 0, score: 0, streak: 0, bestStreak: 0, answered: false };
+  const pickOne = a => a[Math.random() * a.length | 0];
+  const decoys = [];
+  if (DATA.fakes?.length) decoys.push({ ...pickOne(DATA.fakes), kind: 'fake' });
+  if (DATA.strangers?.length) decoys.push({ ...pickOne(DATA.strangers), kind: 'stranger' });
+  const real = shuffle(DATA.reviews).slice(0, total - decoys.length).map(r => ({ ...r, kind: 'real' }));
+  total = real.length + decoys.length;
+  game = { rounds: shuffle([...real, ...decoys]), results: [], i: 0, score: 0, streak: 0, bestStreak: 0, answered: false };
   $('#hud').hidden = false;
   $('#h-total').textContent = total;
   round();
@@ -225,10 +241,16 @@ function round() {
       </div>
       <button class="btn giveup" id="giveup">Give up</button>
     </div>
+    <div class="special-row">
+      <button class="btn special" id="btn-fake">🤖 Fake Review</button>
+      <button class="btn special" id="btn-stranger">🕵️ Not Sam Review</button>
+    </div>
     <ul class="tried" id="tried"></ul>
     <div id="reveal"></div>`;
   setupSearch();
   $('#giveup').onclick = () => answer(null);
+  $('#btn-fake').onclick = () => answer(SPECIAL.fake);
+  $('#btn-stranger').onclick = () => answer(SPECIAL.stranger);
   window.scrollTo({ top: 0 });
   if (matchMedia('(hover: hover)').matches) $('#q').focus({ preventScroll: true });
 }
@@ -290,12 +312,15 @@ function loseLife(count = 1) {
 function answer(guess) {
   if (game.answered) return;
   const r = game.rounds[game.i];
-  const right = !!guess && (guess.appid === r.appid || norm(guess.name) === norm(r.name));
+  const right = !!guess && (r.kind === 'real'
+    ? !guess.special && (guess.appid === r.appid || norm(guess.name) === norm(r.name))
+    : guess.special === r.kind);
   const input = $('#q');
 
   if (guess && !right) {
     loseLife();
-    game.tried.push(guess.appid);
+    game.tried.push(guess.special || guess.appid);
+    if (guess.special) { $(`#btn-${guess.special}`).classList.add('wrong'); $(`#btn-${guess.special}`).disabled = true; }
     $('#tried').insertAdjacentHTML('beforeend', `<li>${esc(guess.name)}</li>`);
     if (game.lives > 0) {
       input.value = '';
@@ -316,17 +341,27 @@ function answer(guess) {
   $('#suggest').hidden = true;
   $('#search').classList.add(right ? 'correct' : 'wrong');
   $('#giveup').hidden = true;
+  document.querySelectorAll('.special').forEach(b => b.disabled = true);
+  if (r.kind !== 'real') $(`#btn-${r.kind}`).classList.add('correct');
+  game.results[game.i] = right;
   updateHud();
   const last = game.i === game.rounds.length - 1;
-  const cheers = ['Nailed it.', 'Correct!', 'You know him too well.', 'Easy.', 'Yep!'];
-  const jeers = ['Nope.', 'Not quite.', 'Miss!', 'So close. (Maybe.)'];
+  const cheers = r.kind === 'fake' ? ['Good eye. That was a fake.', 'Busted. He never wrote that.']
+    : r.kind === 'stranger' ? ['Busted! Not his review.', 'Good catch. Someone else wrote that.']
+    : ['Nailed it.', 'Correct!', 'You know him too well.', 'Easy.', 'Yep!'];
+  const jeers = r.kind === 'fake' ? ['Gotcha. That review was fake.'] : r.kind === 'stranger' ? ['Gotcha. Sam didn’t write that one.']
+    : ['Nope.', 'Not quite.', 'Miss!', 'So close. (Maybe.)'];
+  const art = r.kind === 'fake' ? '<div class="fake-art" aria-hidden="true">🤖</div>'
+    : `<img src="${img(r.appid, 'header')}" alt="${esc(r.name)}" onerror="this.style.display='none'">`;
+  const meta = r.kind === 'fake' ? 'AI-written in his style. He never posted this.'
+    : `${r.kind === 'stranger' ? 'Another Steam player wrote this about' : 'It was'} <b style="color:var(--text)">${esc(r.name)}</b>${r.hours ? ` · ${esc(r.hours)}` : ''}${r.url ? ` · <a href="${esc(r.url)}" target="_blank" rel="noopener">original review</a>` : ''}`;
   const pick = a => a[Math.random() * a.length | 0];
   $('#reveal').innerHTML = `
     <div class="reveal">
-      <img src="${img(r.appid, 'header')}" alt="${esc(r.name)}" onerror="this.style.display='none'">
+      ${art}
       <div>
         <div class="result ${right ? 'good' : 'bad'}">${right ? (guessNo === 1 ? pick(cheers) : `Got it on guess ${guessNo}.`) : pick(jeers)}</div>
-        <div class="meta">It was <b style="color:var(--text)">${esc(r.name)}</b>${r.hours ? ` · ${esc(r.hours)}` : ''}${r.url ? ` · <a href="${esc(r.url)}" target="_blank" rel="noopener">original review</a>` : ''}</div>
+        <div class="meta">${meta}</div>
         <div class="row"><button class="btn primary" id="next">${last ? 'See results' : 'Next review'} →</button><span class="kbd">or press Enter</span></div>
       </div>
     </div>`;
@@ -352,6 +387,7 @@ function finish() {
       <p style="margin-bottom:0">${verdict}</p>
       <div class="big-score">${score}<small> / ${total}</small></div>
       <p>Best streak: ${game.bestStreak}${isBest ? ' · <b style="color:var(--accent)">New personal best!</b>' : ''}</p>
+      <div class="caught">${game.rounds.map((r, i) => r.kind === 'real' ? '' : `<span class="chip${game.results[i] ? ' hot' : ''}">${r.kind === 'fake' ? '🤖 Fake' : '🕵️ Not Sam'}: <b>${game.results[i] ? 'caught' : 'missed'}</b></span>`).join('')}</div>
       <div class="modes"><button class="btn primary" id="again">Play again</button><button class="btn" id="menu">Change length</button></div>
     </section>`;
   $('#again').onclick = () => start(total);

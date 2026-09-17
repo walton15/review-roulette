@@ -36,7 +36,7 @@
   .hero h1 { font-family: var(--display); font-size: clamp(40px, 9vw, 72px); line-height: .95; letter-spacing: -.04em; margin: 0 0 18px; }
   .hero h1 em { font-style: normal; color: var(--accent); }
   .hero p { color: var(--muted); max-width: 480px; margin: 0 auto 30px; font-size: 17px; }
-  .redact { background: var(--text); color: var(--text); border-radius: 3px; padding: 0 .3em; user-select: none; }
+  .hero .tag { font-family: var(--display); font-size: .78em; font-weight: 700; background: var(--accent); color: #1a1405; padding: .1em .45em; border-radius: 5px; white-space: nowrap; }
   .modes { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
   .btn { font-family: var(--display); font-weight: 700; padding: 13px 22px; border-radius: 12px; border: 1px solid var(--line); background: var(--panel); transition: transform .08s, background .15s, border-color .15s; }
   .btn:hover { background: var(--panel-2); border-color: #3d4858; }
@@ -153,7 +153,7 @@ function intro() {
   $('#app').innerHTML = `
     <section class="hero">
       <h1>Which game is<br><em>${esc(PLAYER)}</em> talking about?</h1>
-      <p>${n} real Steam reviews with the <span class="redact">game title</span> blacked out. Search his library and guess which game he's talking about. You get ${LIVES} tries per review.</p>
+      <p>${n} real Steam reviews where the game's name is swapped for <span class="tag">GAME TITLE</span>. Search his library and guess which game he's talking about. You get ${LIVES} tries per review.</p>
       <div class="modes">${modes}<button class="btn${modes ? '' : ' primary'}" data-n="${n}">All ${n}</button></div>
       <p class="fine">Type to search, ↑↓ and Enter to pick, Enter again for the next review.${best ? ` · Your best: ${best.score}/${best.total}` : ''}</p>
     </section>`;

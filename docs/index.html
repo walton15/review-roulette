@@ -161,7 +161,9 @@
 const PLAYER = 'SmartButAutistic';
 const LIVES = 3;
 const SPECIAL = { fake: { special: 'fake', name: 'Fake Review' }, stranger: { special: 'stranger', name: 'Not Sam Review' } };
-const img = (appid, kind) => `https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/${appid}/${kind}.jpg`;
+// Prefer the store's real image URLs (newer games use hashed paths); fall back to Steam's default layout.
+const img = (appid, kind) => DATA.images?.[appid]?.[kind === 'header' ? 0 : 1]
+  || `https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/${appid}/${kind}.jpg`;
 const $ = s => document.querySelector(s);
 const esc = s => s.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const shuffle = a => { a = [...a]; for (let i = a.length - 1; i > 0; i--) { const j = Math.random() * (i + 1) | 0; [a[i], a[j]] = [a[j], a[i]]; } return a; };

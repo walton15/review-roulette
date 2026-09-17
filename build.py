@@ -31,7 +31,7 @@ COMMON = {"the", "game", "games", "a", "an", "of", "and", "edition", "online", "
 def fetch_details(appids):
     cache = json.loads(CACHE.read_text("utf8")) if CACHE.exists() else {}
     for appid in appids:
-        if str(appid) in cache:
+        if "header_image" in cache.get(str(appid), {}):
             continue
         url = f"https://store.steampowered.com/api/appdetails?appids={appid}&filters=basic,developers,publishers&l=english"
         for attempt in range(3):
@@ -46,7 +46,9 @@ def fetch_details(appids):
             body = {}
         entry = body.get(str(appid), {})
         data = entry.get("data", {}) if entry.get("success") else {}
-        cache[str(appid)] = {k: data.get(k) for k in ("name", "developers", "publishers")}
+        # Newer games keep their art under hashed paths, so store the real image URLs.
+        cache[str(appid)] = {**cache.get(str(appid), {}),
+                             **{k: data.get(k) for k in ("name", "developers", "publishers", "header_image", "capsule_imagev5")}}
         CACHE.parent.mkdir(exist_ok=True)
         CACHE.write_text(json.dumps(cache, indent=1, ensure_ascii=False), "utf8")
         time.sleep(1.6)
@@ -129,7 +131,8 @@ def main():
     extra = json.loads((ROOT / "redactions.json").read_text("utf8")) if (ROOT / "redactions.json").exists() else {}
 
     library = {g["appid"]: clean(g["name"]) for g in raw.get("games", [])}
-    details = fetch_details(sorted({r["appid"] for r in raw["reviews"]}))
+    strangers_raw = json.loads((ROOT / "strangers.json").read_text("utf8")) if (ROOT / "strangers.json").exists() else []
+    details = fetch_details(sorted(set(library) | {r["appid"] for r in raw["reviews"]} | {s["appid"] for s in strangers_raw}))
 
     reviews = []
     for r in raw["reviews"]:
@@ -155,14 +158,17 @@ def main():
     # Decoys: AI-written fakes in his style (fakes.json) and other players' reviews (strangers.json, from strangers.py).
     fakes = json.loads((ROOT / "fakes.json").read_text("utf8")) if (ROOT / "fakes.json").exists() else []
     strangers = []
-    for s in json.loads((ROOT / "strangers.json").read_text("utf8")) if (ROOT / "strangers.json").exists() else []:
+    for s in strangers_raw:
         d = details.get(str(s["appid"]), {})
         name = pool.get(s["appid"]) or clean(d.get("name")) or clean(d.get("fallback_name"))
         if name:
             strangers.append({**s, "name": name, "text": redact(s["text"], replacements_for(s["appid"], name, d, extra))})
 
     out = {"profile": raw.get("profile"), "reviews": reviews, "fakes": fakes, "strangers": strangers,
-           "games": [{"appid": a, "name": n} for a, n in sorted(pool.items(), key=lambda kv: kv[1].lower())]}
+           "games": [{"appid": a, "name": n} for a, n in sorted(pool.items(), key=lambda kv: kv[1].lower())],
+           # appid -> [header, capsule] image URLs from the store (the site falls back to Steam's default path)
+           "images": {a: [d.get("header_image"), d.get("capsule_imagev5")] for a, d in details.items()
+                      if d.get("header_image") or d.get("capsule_imagev5")}}
     target = ROOT / "docs" / "data.json"
     before = {r["appid"] for r in json.loads(target.read_text("utf8"))["reviews"]} if target.exists() else set()
     target.write_text(json.dumps(out, ensure_ascii=False, indent=1), "utf8")

@@ -106,7 +106,8 @@
   .tried { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 0; padding: 0; list-style: none; }
   .tried li { font-size: 13px; font-weight: 600; color: var(--bad); background: #ff5c6c17; border: 1px solid #ff5c6c44; border-radius: 999px; padding: 3px 10px 3px 8px; text-decoration: line-through; text-decoration-color: #ff5c6c99; animation: pop .25s ease-out; }
   .hint-btn { display: block; margin: 12px auto 0; padding: 10px 18px; font-size: 14px; border-color: #ffc53d66; color: var(--accent); animation: pop .25s ease-out; }
-  .hint-btn:hover { border-color: var(--accent); }
+  .hint-btn:hover:not(:disabled) { border-color: var(--accent); }
+  .hint-btn:disabled { cursor: default; opacity: .45; border-color: var(--line); color: var(--muted); background: var(--panel); }
   .hint { margin-top: 12px; animation: pop .25s ease-out; }
   .hint-label { font-family: var(--display); font-weight: 700; font-size: 13px; color: var(--muted); margin: 0 2px 8px; }
   .hint-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
@@ -260,7 +261,7 @@ function round() {
       <button class="btn special" id="btn-stranger">🕵️ Not Sam Review</button>
     </div>
     <ul class="tried" id="tried"></ul>
-    <button class="btn hint-btn" id="hint-btn" hidden>💡 Reveal a hint</button>
+    <button class="btn hint-btn" id="hint-btn" disabled title="Unlocks on your last life">💡 Reveal a hint</button>
     <div id="hint"></div>
     <div id="reveal"></div>`;
   setupSearch();
@@ -340,7 +341,7 @@ function answer(guess) {
     if (guess.special) { $(`#btn-${guess.special}`).classList.add('wrong'); $(`#btn-${guess.special}`).disabled = true; }
     $('#tried').insertAdjacentHTML('beforeend', `<li>${esc(guess.name)}</li>`);
     if (game.lives > 0) {
-      if (game.lives === 1) $('#hint-btn').hidden = false;
+      if (game.lives === 1) { $('#hint-btn').disabled = false; $('#hint-btn').removeAttribute('title'); }
       input.value = '';
       $('#suggest').hidden = true;
       input.placeholder = `Nope. ${game.lives} guess${game.lives === 1 ? '' : 'es'} left…`;

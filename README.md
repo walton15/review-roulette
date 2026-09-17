@@ -5,7 +5,7 @@ You get 3 guesses per review. Each game also includes one fake review and one re
 another Steam player. Players have to call those out with the **Fake Review** and
 **Not Sam Review** buttons.
 
-Live site: https://walton15.github.io/review-roulette/
+Live site: https://walton15.github.io/smartbutgamecritic/
 
 ## How it fits together
 
@@ -26,7 +26,7 @@ Requires Python 3.10+ (no extra packages).
 
 ## Importing new reviews
 
-Run these from the `review-roulette` folder.
+Run these from the `smartbutgamecritic` folder.
 
 ### 1. Fetch his reviews
 

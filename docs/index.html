@@ -40,6 +40,7 @@
   .modes { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
   .btn { font-family: var(--display); font-weight: 700; padding: 13px 22px; border-radius: 12px; border: 1px solid var(--line); background: var(--panel); transition: transform .08s, background .15s, border-color .15s; }
   .btn:hover { background: var(--panel-2); border-color: #3d4858; }
+  .modes .btn:hover { border-color: var(--accent); color: var(--accent); }
   .btn:active { transform: translateY(1px); }
   .btn.primary { background: var(--accent); color: #1a1405; border-color: var(--accent); }
   .btn.primary:hover { background: #ffd366; }
@@ -150,21 +151,21 @@ const store = { get(k, d) { try { return JSON.parse(localStorage.getItem(k)) ?? 
 
 let DATA, game;
 
-fetch('data.json').then(r => r.json()).then(d => { DATA = d; intro(); })
+fetch('data.json', { cache: 'no-cache' }).then(r => r.json()).then(d => { DATA = d; intro(); })
   .catch(() => { $('#app').innerHTML = '<p class="err">Couldn’t load the reviews. Try refreshing.</p>'; });
 
 function intro() {
   $('#hud').hidden = true;
   const n = DATA.reviews.length;
-  const modes = [10, 25].filter(m => m < n).map(m => `<button class="btn${m === 10 ? ' primary' : ''}" data-n="${m}">${m} rounds</button>`).join('');
+  const modes = [10, 25].filter(m => m < n).map(m => `<button class="btn" data-n="${m}">${m} rounds</button>`).join('');
   const decoys = (DATA.fakes?.length ? 1 : 0) + (DATA.strangers?.length ? 1 : 0);
   const best = store.get('rr-best', null);
   $('#app').innerHTML = `
     <section class="hero">
       <h1>Which game is<br><em>${esc(PLAYER)}</em> talking about?</h1>
       <p>${n} real ${esc(PLAYER)} Steam reviews where the game's name is hidden. Search his library and guess which game he's talking about. You get ${LIVES} tries per review.</p>
-      <p style="margin-top:-18px">Watch out: every game sneaks in one <b style="color:var(--text)">fake</b> and one review from <b style="color:var(--text)">another Steam player</b>. Call them out with the <b style="color:var(--text)">Fake Review</b> and <b style="color:var(--text)">Not Sam Review</b> buttons.</p>
-      <div class="modes">${modes}<button class="btn${modes ? '' : ' primary'}" data-n="${n + decoys}">All ${n}</button></div>
+      ${decoys ? `<p style="margin-top:-18px">Watch out: every game sneaks in one <b style="color:var(--text)">fake</b> and one review from <b style="color:var(--text)">another Steam player</b>. Call them out with the <b style="color:var(--text)">Fake Review</b> and <b style="color:var(--text)">Not Sam Review</b> buttons.</p>` : ''}
+      <div class="modes">${modes}<button class="btn" data-n="${n + decoys}">All ${n}</button></div>
       <p class="fine">Type to search, ↑↓ and Enter to pick, Enter again for the next review.${best ? ` · Your best: ${best.score}/${best.total}` : ''}</p>
     </section>`;
   $('#app').querySelectorAll('[data-n]').forEach(b => b.onclick = () => start(+b.dataset.n));

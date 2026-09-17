@@ -1,0 +1,30 @@
+name: Refresh other-player reviews
+
+on:
+  schedule:
+    - cron: "17 9 * * *"  # daily, 09:17 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Pick a new pool of reviews from other players
+        run: python strangers.py 45
+      - name: Hide game and developer names
+        run: python build.py --strangers-only
+      - name: Commit if anything changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+          git add strangers.json docs/data.json cache/appdetails.json
+          git diff --cached --quiet && exit 0
+          git commit -m "Refresh other-player reviews"
+          git push

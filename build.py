@@ -1,6 +1,8 @@
 """SmartButGameCritic — turns steam-data.json into the redacted docs/data.json the site loads.
 
     python build.py [steam-data.json]
+    python build.py --strangers-only   # refresh only the other-player reviews in docs/data.json
+
 
 Game titles become [GAME TITLE]; developer/publisher names become [DEVELOPER].
 Extra per-game terms (character names, places, sequels...) go in redactions.json:
@@ -125,7 +127,32 @@ def replacements_for(appid, name, details, extra):
     return reps
 
 
+def build_strangers(strangers_raw, pool, details, extra):
+    strangers = []
+    for s in strangers_raw:
+        d = details.get(str(s["appid"]), {})
+        name = pool.get(s["appid"]) or clean(d.get("name")) or clean(d.get("fallback_name"))
+        if name:
+            strangers.append({**s, "name": name, "text": redact(s["text"], replacements_for(s["appid"], name, d, extra))})
+    return strangers
+
+
+def strangers_only():
+    """Used by the daily GitHub Action, which has docs/data.json but not steam-data.json."""
+    target = ROOT / "docs" / "data.json"
+    out = json.loads(target.read_text("utf8"))
+    extra = json.loads((ROOT / "redactions.json").read_text("utf8")) if (ROOT / "redactions.json").exists() else {}
+    strangers_raw = json.loads((ROOT / "strangers.json").read_text("utf8"))
+    details = fetch_details(sorted({s["appid"] for s in strangers_raw}))
+    pool = {g["appid"]: g["name"] for g in out["games"]}
+    out["strangers"] = build_strangers(strangers_raw, pool, details, extra)
+    target.write_text(json.dumps(out, ensure_ascii=False, indent=1), "utf8")
+    print(f"Wrote docs/data.json: {len(out['strangers'])} other-player reviews")
+
+
 def main():
+    if "--strangers-only" in sys.argv:
+        return strangers_only()
     src = Path(sys.argv[1] if len(sys.argv) > 1 else ROOT / "steam-data.json")
     raw = json.loads(src.read_text("utf8"))
     extra = json.loads((ROOT / "redactions.json").read_text("utf8")) if (ROOT / "redactions.json").exists() else {}
@@ -157,12 +184,7 @@ def main():
         pool.setdefault(rv["appid"], rv["name"])
     # Decoys: AI-written fakes in his style (fakes.json) and other players' reviews (strangers.json, from strangers.py).
     fakes = json.loads((ROOT / "fakes.json").read_text("utf8")) if (ROOT / "fakes.json").exists() else []
-    strangers = []
-    for s in strangers_raw:
-        d = details.get(str(s["appid"]), {})
-        name = pool.get(s["appid"]) or clean(d.get("name")) or clean(d.get("fallback_name"))
-        if name:
-            strangers.append({**s, "name": name, "text": redact(s["text"], replacements_for(s["appid"], name, d, extra))})
+    strangers = build_strangers(strangers_raw, pool, details, extra)
 
     out = {"profile": raw.get("profile"), "reviews": reviews, "fakes": fakes, "strangers": strangers,
            "games": [{"appid": a, "name": n} for a, n in sorted(pool.items(), key=lambda kv: kv[1].lower())],

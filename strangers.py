@@ -5,6 +5,7 @@
 For random games he has reviewed, pulls a helpful English review from Steam's public
 review API and saves the raw pool to strangers.json. build.py redacts them like his.
 Re-running replaces the pool; delete entries from strangers.json to drop bad picks.
+A GitHub Action (.github/workflows/refresh-strangers.yml) re-runs this daily.
 """
 import json
 import random
@@ -52,7 +53,8 @@ def fetch_reviews(appid):
 
 def main():
     want = int(sys.argv[1]) if len(sys.argv) > 1 else 40
-    raw = json.loads((ROOT / "steam-data.json").read_text("utf8"))
+    # docs/data.json is committed, so this also works in CI where steam-data.json doesn't exist.
+    raw = json.loads((ROOT / "docs" / "data.json").read_text("utf8"))
     reviewed = list({r["appid"] for r in raw["reviews"]} - SKIP_APPS)
     random.shuffle(reviewed)
 
@@ -82,6 +84,8 @@ def main():
             print(f"  {appid}: picked 1 of {len(candidates)}")
         time.sleep(1.5)
 
+    if len(pool) < want // 2:  # Steam blocked or failed us; keep the old pool rather than shrink it
+        sys.exit(f"Only found {len(pool)} of {want} reviews; leaving strangers.json unchanged")
     (ROOT / "strangers.json").write_text(json.dumps(pool, indent=1, ensure_ascii=False), "utf8")
     print(f"Wrote strangers.json: {len(pool)} reviews from other players")
 

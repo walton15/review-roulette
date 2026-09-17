@@ -58,20 +58,24 @@
   .quote .tag { font-family: var(--display); font-size: .72em; font-weight: 700; background: var(--accent); color: #1a1405; padding: .08em .45em; border-radius: 5px; white-space: nowrap; vertical-align: .1em; }
   .quote::-webkit-scrollbar { width: 6px; } .quote::-webkit-scrollbar-thumb { background: var(--line); border-radius: 3px; }
   .prompt { font-family: var(--display); font-weight: 700; margin: 22px 2px 10px; font-size: 15px; color: var(--muted); }
-  .options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  @media (max-width: 560px) { .options { grid-template-columns: 1fr; } .card { padding: 18px 16px 14px; } .quote { font-size: 17px; } .quote.short { font-size: 22px; } }
-  .opt { display: flex; align-items: center; gap: 12px; text-align: left; padding: 10px 12px; min-height: 64px; border-radius: 14px; border: 1px solid var(--line); background: var(--panel); transition: border-color .15s, background .15s, transform .08s, opacity .2s; }
-  .opt:hover:not(:disabled) { border-color: var(--accent); background: var(--panel-2); }
-  .opt:active:not(:disabled) { transform: translateY(1px); }
-  .opt:disabled { cursor: default; }
-  .opt .key { flex: none; width: 30px; height: 30px; display: grid; place-items: center; border-radius: 8px; background: var(--panel-2); font-family: var(--display); font-weight: 700; font-size: 14px; color: var(--muted); }
-  .opt img { flex: none; width: 92px; height: 34px; object-fit: cover; border-radius: 5px; background: var(--panel-2); }
-  .opt .name { font-weight: 600; line-height: 1.25; overflow-wrap: anywhere; }
-  .opt.correct { border-color: var(--good); background: #3ecf8e17; }
-  .opt.correct .key { background: var(--good); color: #04140c; }
-  .opt.wrong { border-color: var(--bad); background: #ff5c6c17; }
-  .opt.wrong .key { background: var(--bad); color: #1c0306; }
-  .opt.dim { opacity: .45; }
+  @media (max-width: 560px) { .card { padding: 18px 16px 14px; } .quote { font-size: 17px; } .quote.short { font-size: 22px; } }
+  .guess-row { display: flex; gap: 10px; }
+  .search { position: relative; flex: 1; min-width: 0; }
+  .search input { width: 100%; font: 600 17px/1.2 system-ui, -apple-system, "Segoe UI", sans-serif; color: var(--text); background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 16px 16px 16px 46px; outline: none; transition: border-color .15s, background .15s; }
+  .search input::placeholder { color: var(--muted); font-weight: 400; }
+  .search input:focus { border-color: var(--accent); }
+  .search input:disabled { opacity: 1; }
+  .search .icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
+  .search.correct input { border-color: var(--good); background: #3ecf8e17; }
+  .search.wrong input { border-color: var(--bad); background: #ff5c6c17; text-decoration: line-through; text-decoration-color: #ff5c6c99; }
+  .giveup { flex: none; padding-inline: 16px; color: var(--muted); }
+  .suggest { position: absolute; z-index: 5; left: 0; right: 0; top: calc(100% + 6px); margin: 0; padding: 6px; list-style: none; background: var(--panel-2); border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 18px 40px #0008; max-height: 360px; overflow-y: auto; }
+  .suggest li { display: flex; align-items: center; gap: 12px; padding: 7px 8px; border-radius: 9px; cursor: pointer; }
+  .suggest li.active { background: #ffc53d1f; }
+  .suggest li img { flex: none; width: 92px; height: 34px; object-fit: cover; border-radius: 5px; background: var(--panel); }
+  .suggest li span { font-weight: 600; line-height: 1.25; overflow-wrap: anywhere; }
+  .suggest li mark { background: none; color: var(--accent); }
+  .suggest .empty { color: var(--muted); cursor: default; padding: 12px; }
 
   .reveal { margin-top: 14px; display: grid; grid-template-columns: 230px 1fr; gap: 16px; align-items: center; background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 14px; animation: pop .25s ease-out; }
   @media (max-width: 560px) { .reveal { grid-template-columns: 1fr; } }
@@ -122,9 +126,9 @@ function intro() {
   $('#app').innerHTML = `
     <section class="hero">
       <h1>Which game is<br><em>${esc(PLAYER)}</em> talking about?</h1>
-      <p>${n} real Steam reviews with the <span class="redact">game title</span> blacked out. Pick the right game out of four from his library.</p>
+      <p>${n} real Steam reviews with the <span class="redact">game title</span> blacked out. Search his library and guess which game he's talking about.</p>
       <div class="modes">${modes}<button class="btn${modes ? '' : ' primary'}" data-n="${n}">All ${n}</button></div>
-      <p class="fine">Press A–D or 1–4 to answer, Enter for the next review.${best ? ` · Your best: ${best.score}/${best.total}` : ''}</p>
+      <p class="fine">Type to search, ↑↓ and Enter to pick, Enter again for the next review.${best ? ` · Your best: ${best.score}/${best.total}` : ''}</p>
     </section>`;
   $('#app').querySelectorAll('[data-n]').forEach(b => b.onclick = () => start(+b.dataset.n));
 }
@@ -136,14 +140,31 @@ function start(total) {
   round();
 }
 
-function optionsFor(review) {
-  const others = DATA.games.filter(g => g.appid !== review.appid && g.name.toLowerCase() !== review.name.toLowerCase());
-  const picks = [];
-  for (const g of shuffle(others)) {
-    if (picks.length === 3) break;
-    if (!picks.some(p => p.name.toLowerCase() === g.name.toLowerCase())) picks.push(g);
+const norm = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+
+// Every typed word must start a word in the title (or appear inside it); best matches first.
+function searchGames(query) {
+  const q = norm(query);
+  if (!q) return [];
+  const tokens = q.split(' ');
+  const hits = [];
+  for (const g of DATA.games) {
+    const n = g.norm ??= norm(g.name), words = n.split(' ');
+    let rank;
+    if (n.startsWith(q)) rank = 0;
+    else if (tokens.every(t => words.some(w => w.startsWith(t)))) rank = 1;
+    else if (tokens.every(t => n.includes(t)) || n.replace(/ /g, '').includes(q.replace(/ /g, ''))) rank = 2;
+    else continue;
+    hits.push({ g, rank });
   }
-  return shuffle([{ appid: review.appid, name: review.name }, ...picks]);
+  return hits.sort((a, b) => a.rank - b.rank || a.g.name.length - b.g.name.length).slice(0, 8).map(h => h.g);
+}
+
+function highlight(name, query) {
+  const tokens = norm(query).split(' ').filter(Boolean).sort((a, b) => b.length - a.length);
+  if (!tokens.length) return esc(name);
+  const re = new RegExp(`(${tokens.map(t => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`, 'gi');
+  return name.split(re).map((part, i) => i % 2 ? `<mark>${esc(part)}</mark>` : esc(part)).join('');
 }
 
 function renderText(t) {
@@ -153,7 +174,6 @@ function renderText(t) {
 function round() {
   const r = game.rounds[game.i];
   game.answered = false;
-  game.options = optionsFor(r);
   updateHud();
   $('#app').innerHTML = `
     <article class="card" id="card">
@@ -164,30 +184,68 @@ function round() {
       <div class="quote${r.text.length < 90 ? ' short' : ''}">${renderText(r.text)}</div>
     </article>
     <div class="prompt">Which game is it?</div>
-    <div class="options">${game.options.map((o, k) => `
-      <button class="opt" data-k="${k}">
-        <span class="key">${'ABCD'[k]}</span>
-        <img src="${img(o.appid, 'capsule_184x69')}" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
-        <span class="name">${esc(o.name)}</span>
-      </button>`).join('')}
+    <div class="guess-row">
+      <div class="search" id="search">
+        <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="q" type="text" placeholder="Start typing a game from his library…" autocomplete="off" spellcheck="false"
+          role="combobox" aria-expanded="false" aria-controls="suggest" aria-autocomplete="list">
+        <ul class="suggest" id="suggest" role="listbox" hidden></ul>
+      </div>
+      <button class="btn giveup" id="giveup">Give up</button>
     </div>
     <div id="reveal"></div>`;
-  $('#app').querySelectorAll('.opt').forEach(b => b.onclick = () => answer(+b.dataset.k));
+  setupSearch();
+  $('#giveup').onclick = () => answer(null);
   window.scrollTo({ top: 0 });
+  if (matchMedia('(hover: hover)').matches) $('#q').focus({ preventScroll: true });
 }
 
-function answer(k) {
+function setupSearch() {
+  const input = $('#q'), list = $('#suggest');
+  let results = [], active = 0;
+  const close = () => { list.hidden = true; input.setAttribute('aria-expanded', 'false'); };
+  const render = () => {
+    results = searchGames(input.value);
+    active = Math.min(active, Math.max(results.length - 1, 0));
+    if (!input.value.trim()) return close();
+    list.innerHTML = results.length
+      ? results.map((g, i) => `<li role="option" data-i="${i}" class="${i === active ? 'active' : ''}" aria-selected="${i === active}">
+          <img src="${img(g.appid, 'capsule_184x69')}" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <span>${highlight(g.name, input.value)}</span></li>`).join('')
+      : '<li class="empty">No games in his library match that.</li>';
+    list.hidden = false;
+    input.setAttribute('aria-expanded', 'true');
+    list.querySelector('.active')?.scrollIntoView({ block: 'nearest' });
+  };
+  input.oninput = () => { active = 0; render(); };
+  input.onfocus = render;
+  input.onkeydown = e => {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (results.length) { active = (active + (e.key === 'ArrowDown' ? 1 : -1) + results.length) % results.length; render(); }
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      if (!list.hidden && results[active]) answer(results[active]);
+    } else if (e.key === 'Escape') close();
+  };
+  // mousedown (not click) so the pick lands before the input loses focus
+  list.onmousedown = e => { const li = e.target.closest('li[data-i]'); if (li) { e.preventDefault(); answer(results[+li.dataset.i]); } };
+  input.onblur = () => setTimeout(close, 100);
+}
+
+function answer(guess) {
   if (game.answered) return;
   game.answered = true;
   const r = game.rounds[game.i];
-  const right = game.options[k].appid === r.appid;
+  const right = !!guess && (guess.appid === r.appid || norm(guess.name) === norm(r.name));
   if (right) { game.score++; game.streak++; game.bestStreak = Math.max(game.bestStreak, game.streak); }
   else { game.streak = 0; $('#card').classList.add('shake'); }
-  $('#app').querySelectorAll('.opt').forEach((b, j) => {
-    b.disabled = true;
-    const isAnswer = game.options[j].appid === r.appid;
-    b.classList.add(isAnswer ? 'correct' : j === k ? 'wrong' : 'dim');
-  });
+  const input = $('#q');
+  input.value = guess ? guess.name : 'Gave up';
+  input.disabled = true;
+  $('#suggest').hidden = true;
+  $('#search').classList.add(right ? 'correct' : 'wrong');
+  $('#giveup').hidden = true;
   updateHud();
   const last = game.i === game.rounds.length - 1;
   const cheers = ['Nailed it.', 'Correct!', 'You know him too well.', 'Easy.', 'Yep!'];
@@ -218,7 +276,7 @@ function finish() {
   const best = store.get('rr-best', null);
   const isBest = !best || pct > best.score / best.total;
   if (isBest) store.set('rr-best', { score, total });
-  const verdict = pct === 1 ? `Perfect. Are you ${esc(PLAYER)}?` : pct >= .8 ? 'Certified best friend.' : pct >= .6 ? 'You clearly pay attention.' : pct >= .4 ? 'Decent. You’ve heard him talk.' : pct > .25 ? 'About as good as guessing.' : 'Do you actually know this guy?';
+  const verdict = pct === 1 ? `Perfect. Are you ${esc(PLAYER)}?` : pct >= .8 ? 'Certified best friend.' : pct >= .6 ? 'You clearly pay attention.' : pct >= .4 ? 'Decent. You’ve heard him talk.' : pct > .2 ? 'A few lucky guesses.' : 'Do you actually know this guy?';
   $('#app').innerHTML = `
     <section class="hero">
       <p style="margin-bottom:0">${verdict}</p>
@@ -239,9 +297,8 @@ function updateHud() {
 
 document.addEventListener('keydown', e => {
   if (!game || $('#hud').hidden || e.ctrlKey || e.metaKey || e.altKey) return;
-  const k = 'abcd'.indexOf(e.key.toLowerCase()), n = '1234'.indexOf(e.key);
-  if (!game.answered && (k > -1 || n > -1)) answer(k > -1 ? k : n);
-  else if (game.answered && (e.key === 'Enter' || e.key === ' ') && document.activeElement?.id !== 'next') { e.preventDefault(); next(); }
+  if (game.answered && e.key === 'Enter' && document.activeElement?.id !== 'next') { e.preventDefault(); next(); }
+  else if (!game.answered && e.key === '/' && document.activeElement?.id !== 'q') { e.preventDefault(); $('#q').focus(); }
 });
 </script>
 </body>

@@ -77,6 +77,28 @@
   .suggest li mark { background: none; color: var(--accent); }
   .suggest .empty { color: var(--muted); cursor: default; padding: 12px; }
 
+  .prompt-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 22px 2px 10px; }
+  .prompt-row .prompt { margin: 0; }
+  .lives { display: flex; gap: 6px; }
+  .heart { width: 30px; height: 30px; display: block; overflow: visible; animation: heart-in .45s cubic-bezier(.3,1.6,.5,1) backwards; }
+  .heart:nth-child(2) { animation-delay: .08s; } .heart:nth-child(3) { animation-delay: .16s; }
+  .heart .empty { fill: none; stroke: var(--line); stroke-width: 1.6; }
+  .heart .half { fill: var(--bad); transform-box: fill-box; transform-origin: 50% 90%; filter: drop-shadow(0 0 5px #ff5c6c66); }
+  .lives.warn .heart:not([data-lost]) .half { animation: beat 1s ease-in-out infinite; }
+  .heart.broken { animation: heart-hit .35s ease-out; }
+  .heart.broken .half.l { animation: fall-l .75s cubic-bezier(.4,0,.8,.6) forwards; }
+  .heart.broken .half.r { animation: fall-r .75s cubic-bezier(.4,0,.8,.6) forwards; }
+  .lives.won .heart:not([data-lost]) .half { animation: won .6s ease-out; fill: var(--good); filter: drop-shadow(0 0 6px #3ecf8e88); }
+  @keyframes heart-in { from { transform: scale(0); opacity: 0; } }
+  @keyframes heart-hit { 0% { transform: scale(1); } 30% { transform: scale(1.35) rotate(-8deg); } 60% { transform: scale(.9) rotate(6deg); } 100% { transform: none; } }
+  @keyframes fall-l { 15% { transform: translate(-2px, -1px) rotate(-12deg); opacity: 1; } 100% { transform: translate(-9px, 22px) rotate(-55deg); opacity: 0; } }
+  @keyframes fall-r { 15% { transform: translate(2px, -1px) rotate(12deg); opacity: 1; } 100% { transform: translate(9px, 22px) rotate(55deg); opacity: 0; } }
+  @keyframes beat { 0%, 60%, 100% { transform: scale(1); } 15% { transform: scale(1.18); } 30% { transform: scale(.96); } 45% { transform: scale(1.1); } }
+  @keyframes won { 40% { transform: scale(1.35) translateY(-3px); } }
+  .tried { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 0; padding: 0; list-style: none; }
+  .tried li { font-size: 13px; font-weight: 600; color: var(--bad); background: #ff5c6c17; border: 1px solid #ff5c6c44; border-radius: 999px; padding: 3px 10px 3px 8px; text-decoration: line-through; text-decoration-color: #ff5c6c99; animation: pop .25s ease-out; }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; } .heart.broken .half { opacity: 0; } }
+
   .reveal { margin-top: 14px; display: grid; grid-template-columns: 230px 1fr; gap: 16px; align-items: center; background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 14px; animation: pop .25s ease-out; }
   @media (max-width: 560px) { .reveal { grid-template-columns: 1fr; } }
   .reveal img { width: 100%; aspect-ratio: 460/215; object-fit: cover; border-radius: 10px; background: var(--panel-2); display: block; }
@@ -103,10 +125,15 @@
     </div>
   </div>
   <div id="app"><p class="fine" style="text-align:center">Loading reviews…</p></div>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+    <clipPath id="crack-l"><polygon points="0,0 12.6,0 11,7.5 13.6,11.5 10.8,15.5 12.6,24 0,24"/></clipPath>
+    <clipPath id="crack-r"><polygon points="12.6,0 24,0 24,24 12.6,24 10.8,15.5 13.6,11.5 11,7.5"/></clipPath>
+  </defs></svg>
 </main>
 
 <script>
 const PLAYER = 'SmartButAutistic';
+const LIVES = 3;
 const img = (appid, kind) => `https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/${appid}/${kind}.jpg`;
 const $ = s => document.querySelector(s);
 const esc = s => s.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -126,7 +153,7 @@ function intro() {
   $('#app').innerHTML = `
     <section class="hero">
       <h1>Which game is<br><em>${esc(PLAYER)}</em> talking about?</h1>
-      <p>${n} real Steam reviews with the <span class="redact">game title</span> blacked out. Search his library and guess which game he's talking about.</p>
+      <p>${n} real Steam reviews with the <span class="redact">game title</span> blacked out. Search his library and guess which game he's talking about. You get ${LIVES} tries per review.</p>
       <div class="modes">${modes}<button class="btn${modes ? '' : ' primary'}" data-n="${n}">All ${n}</button></div>
       <p class="fine">Type to search, ↑↓ and Enter to pick, Enter again for the next review.${best ? ` · Your best: ${best.score}/${best.total}` : ''}</p>
     </section>`;
@@ -174,6 +201,8 @@ function renderText(t) {
 function round() {
   const r = game.rounds[game.i];
   game.answered = false;
+  game.lives = LIVES;
+  game.tried = [];
   updateHud();
   $('#app').innerHTML = `
     <article class="card" id="card">
@@ -183,7 +212,10 @@ function round() {
       </div>
       <div class="quote${r.text.length < 90 ? ' short' : ''}">${renderText(r.text)}</div>
     </article>
-    <div class="prompt">Which game is it?</div>
+    <div class="prompt-row">
+      <div class="prompt">Which game is it?</div>
+      <div class="lives" id="lives" role="img" aria-label="${LIVES} guesses left">${heartSvg().repeat(LIVES)}</div>
+    </div>
     <div class="guess-row">
       <div class="search" id="search">
         <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
@@ -193,6 +225,7 @@ function round() {
       </div>
       <button class="btn giveup" id="giveup">Give up</button>
     </div>
+    <ul class="tried" id="tried"></ul>
     <div id="reveal"></div>`;
   setupSearch();
   $('#giveup').onclick = () => answer(null);
@@ -205,7 +238,7 @@ function setupSearch() {
   let results = [], active = 0;
   const close = () => { list.hidden = true; input.setAttribute('aria-expanded', 'false'); };
   const render = () => {
-    results = searchGames(input.value);
+    results = searchGames(input.value).filter(g => !game.tried.includes(g.appid));
     active = Math.min(active, Math.max(results.length - 1, 0));
     if (!input.value.trim()) return close();
     list.innerHTML = results.length
@@ -233,15 +266,52 @@ function setupSearch() {
   input.onblur = () => setTimeout(close, 100);
 }
 
+// A heart split along a jagged crack into two halves that fall apart when it breaks.
+function heartSvg() {
+  const d = 'M12 21.3s-7.8-4.7-10.3-9.6C0 8.1 2.2 3.6 6.4 3.6c2.4 0 4.1 1.4 5.6 3.4 1.5-2 3.2-3.4 5.6-3.4 4.2 0 6.4 4.5 4.7 8.1C19.8 16.6 12 21.3 12 21.3z';
+  return `<svg class="heart" viewBox="0 0 24 24" aria-hidden="true">
+    <path class="empty" d="${d}"/>
+    <path class="half l" d="${d}" clip-path="url(#crack-l)"/>
+    <path class="half r" d="${d}" clip-path="url(#crack-r)"/>
+  </svg>`;
+}
+
+function loseLife(count = 1) {
+  const hearts = [...document.querySelectorAll('#lives .heart:not([data-lost])')].reverse();
+  hearts.slice(0, count).forEach((h, k) => { h.dataset.lost = ''; setTimeout(() => h.classList.add('broken'), k * 140); });
+  game.lives = Math.max(0, game.lives - count);
+  const lives = $('#lives');
+  lives.classList.toggle('warn', game.lives === 1);
+  lives.setAttribute('aria-label', `${game.lives} guess${game.lives === 1 ? '' : 'es'} left`);
+  const card = $('#card');
+  card.classList.remove('shake'); void card.offsetWidth; card.classList.add('shake');
+}
+
 function answer(guess) {
   if (game.answered) return;
-  game.answered = true;
   const r = game.rounds[game.i];
   const right = !!guess && (guess.appid === r.appid || norm(guess.name) === norm(r.name));
-  if (right) { game.score++; game.streak++; game.bestStreak = Math.max(game.bestStreak, game.streak); }
-  else { game.streak = 0; $('#card').classList.add('shake'); }
   const input = $('#q');
-  input.value = guess ? guess.name : 'Gave up';
+
+  if (guess && !right) {
+    loseLife();
+    game.tried.push(guess.appid);
+    $('#tried').insertAdjacentHTML('beforeend', `<li>${esc(guess.name)}</li>`);
+    if (game.lives > 0) {
+      input.value = '';
+      $('#suggest').hidden = true;
+      input.placeholder = `Nope. ${game.lives} guess${game.lives === 1 ? '' : 'es'} left…`;
+      input.focus({ preventScroll: true });
+      return;
+    }
+  }
+  if (!guess) loseLife(game.lives);
+
+  game.answered = true;
+  const guessNo = game.tried.length + 1;
+  if (right) { game.score++; game.streak++; game.bestStreak = Math.max(game.bestStreak, game.streak); $('#lives').classList.add('won'); }
+  else game.streak = 0;
+  input.value = right ? guess.name : guess ? 'Out of guesses' : 'Gave up';
   input.disabled = true;
   $('#suggest').hidden = true;
   $('#search').classList.add(right ? 'correct' : 'wrong');
@@ -255,7 +325,7 @@ function answer(guess) {
     <div class="reveal">
       <img src="${img(r.appid, 'header')}" alt="${esc(r.name)}" onerror="this.style.display='none'">
       <div>
-        <div class="result ${right ? 'good' : 'bad'}">${right ? pick(cheers) : pick(jeers)}</div>
+        <div class="result ${right ? 'good' : 'bad'}">${right ? (guessNo === 1 ? pick(cheers) : `Got it on guess ${guessNo}.`) : pick(jeers)}</div>
         <div class="meta">It was <b style="color:var(--text)">${esc(r.name)}</b>${r.hours ? ` · ${esc(r.hours)}` : ''}${r.url ? ` · <a href="${esc(r.url)}" target="_blank" rel="noopener">original review</a>` : ''}</div>
         <div class="row"><button class="btn primary" id="next">${last ? 'See results' : 'Next review'} →</button><span class="kbd">or press Enter</span></div>
       </div>

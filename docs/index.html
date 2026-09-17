@@ -163,7 +163,7 @@ function intro() {
     <section class="hero">
       <h1>Which game is<br><em>${esc(PLAYER)}</em> talking about?</h1>
       <p>${n} real ${esc(PLAYER)} Steam reviews where the game's name is hidden. Search his library and guess which game he's talking about. You get ${LIVES} tries per review.</p>
-      <p style="margin-top:-18px">Watch out: every game sneaks in one <b style="color:var(--text)">AI-written fake</b> and one review from <b style="color:var(--text)">another Steam player</b>. Call them out with the <b style="color:var(--text)">Fake Review</b> and <b style="color:var(--text)">Not Sam Review</b> buttons.</p>
+      <p style="margin-top:-18px">Watch out: every game sneaks in one <b style="color:var(--text)">fake</b> and one review from <b style="color:var(--text)">another Steam player</b>. Call them out with the <b style="color:var(--text)">Fake Review</b> and <b style="color:var(--text)">Not Sam Review</b> buttons.</p>
       <div class="modes">${modes}<button class="btn${modes ? '' : ' primary'}" data-n="${n + decoys}">All ${n}</button></div>
       <p class="fine">Type to search, ↑↓ and Enter to pick, Enter again for the next review.${best ? ` · Your best: ${best.score}/${best.total}` : ''}</p>
     </section>`;
@@ -353,7 +353,7 @@ function answer(guess) {
     : ['Nope.', 'Not quite.', 'Miss!', 'So close. (Maybe.)'];
   const art = r.kind === 'fake' ? '<div class="fake-art" aria-hidden="true">🤖</div>'
     : `<img src="${img(r.appid, 'header')}" alt="${esc(r.name)}" onerror="this.style.display='none'">`;
-  const meta = r.kind === 'fake' ? 'AI-written in his style. He never posted this.'
+  const meta = r.kind === 'fake' ? 'A fake written in his style. He never posted this.'
     : `${r.kind === 'stranger' ? 'Another Steam player wrote this about' : 'It was'} <b style="color:var(--text)">${esc(r.name)}</b>${r.hours ? ` · ${esc(r.hours)}` : ''}${r.url ? ` · <a href="${esc(r.url)}" target="_blank" rel="noopener">original review</a>` : ''}`;
   const pick = a => a[Math.random() * a.length | 0];
   $('#reveal').innerHTML = `

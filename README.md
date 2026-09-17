@@ -1,7 +1,7 @@
 # Review Roulette
 
 Read one of SmartButAutistic's Steam reviews with the game's name hidden, then guess the game.
-You get 3 guesses per review. Each game also includes one AI-written fake and one review from
+You get 3 guesses per review. Each game also includes one fake review and one review from
 another Steam player. Players have to call those out with the **Fake Review** and
 **Not Sam Review** buttons.
 
@@ -17,7 +17,7 @@ Live site: https://walton15.github.io/review-roulette/
 | `collect_reviews.py` | Fetches his public reviews into `steam-data.json`. No login needed. |
 | `collect.js` | Browser-console script that fetches reviews **and his game library**. Needs you logged into Steam. |
 | `redactions.json` | Extra words to hide per game (character names, actors, series names). |
-| `fakes.json` | The AI-written fake reviews in his style. |
+| `fakes.json` | Fake reviews written in his style. |
 | `strangers.py` → `strangers.json` | Pool of reviews by other Steam players. |
 | `build.py` | Hides game names and builds `docs/data.json` from everything above. |
 | `cache/` | Cached Steam store lookups (developer and publisher names). Safe to delete. |
@@ -110,7 +110,7 @@ After this, `collect_reviews.py` keeps the library in place when it refreshes re
   masks profanity with ♥ like Steam does. Skim `strangers.json` afterwards and delete any
   entries you don't want. Then run `python build.py`. The same name hiding and
   `redactions.json` rules apply.
-- **AI-written fakes:** edit `fakes.json`. Each entry is
+- **Fake reviews:** edit `fakes.json`. Each entry is
   `{"recommended": true/false, "text": "..."}`. Write `[GAME TITLE]` where a game name would
   go, so fakes look like his real (redacted) reviews. Run `python build.py`.
 

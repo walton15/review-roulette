@@ -82,7 +82,7 @@
   .prompt-row .prompt { margin: 0; }
   .lives { display: flex; gap: 6px; }
   .heart { width: 30px; height: 30px; display: block; overflow: visible; animation: heart-in .45s cubic-bezier(.3,1.6,.5,1) backwards; }
-  .heart:nth-child(2) { animation-delay: .08s; } .heart:nth-child(3) { animation-delay: .16s; }
+  .heart:nth-child(2) { animation-delay: .08s; } .heart:nth-child(3) { animation-delay: .16s; } .heart:nth-child(4) { animation-delay: .24s; }
   .heart .empty { fill: none; stroke: var(--line); stroke-width: 1.6; }
   .heart .half { fill: var(--bad); transform-box: fill-box; transform-origin: 50% 90%; filter: drop-shadow(0 0 5px #ff5c6c66); }
   .lives.warn .heart:not([data-lost]) .half { animation: beat 1s ease-in-out infinite; }
@@ -107,13 +107,19 @@
   .tried li { font-size: 13px; font-weight: 600; color: var(--bad); background: #ff5c6c17; border: 1px solid #ff5c6c44; border-radius: 999px; padding: 3px 10px 3px 8px; text-decoration: line-through; text-decoration-color: #ff5c6c99; animation: pop .25s ease-out; }
   .hint-btn { display: block; margin: 12px auto 0; padding: 10px 18px; font-size: 14px; border-color: #ffc53d66; color: var(--accent); animation: pop .25s ease-out; }
   .hint-btn { position: relative; }
+  .hint-btn[hidden] { display: none; }
   .hint-btn:hover { border-color: var(--accent); }
   .hint-btn.locked { cursor: not-allowed; color: #8b97a873; border-color: var(--line); background: var(--panel); }
   .hint-btn.locked:active { transform: none; }
-  .hint-btn.locked::after { content: "Unlocks on your last life"; position: absolute; left: 50%; bottom: calc(100% + 8px); transform: translate(-50%, 4px); white-space: nowrap; font-size: 12px; font-weight: 500; color: var(--text); background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px; padding: 5px 9px; box-shadow: 0 8px 20px #0007; opacity: 0; pointer-events: none; transition: opacity .15s, transform .15s; }
+  .hint-btn.locked::after { content: attr(data-lock); position: absolute; left: 50%; bottom: calc(100% + 8px); transform: translate(-50%, 4px); white-space: nowrap; font-size: 12px; font-weight: 500; color: var(--text); background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px; padding: 5px 9px; box-shadow: 0 8px 20px #0007; opacity: 0; pointer-events: none; transition: opacity .15s, transform .15s; }
   .hint-btn.locked:hover::after, .hint-btn.locked:focus-visible::after, .hint-btn.locked.nudge::after { opacity: 1; transform: translate(-50%, 0); }
   .hint { margin-top: 12px; animation: pop .25s ease-out; }
   .hint-label { font-family: var(--display); font-weight: 700; font-size: 13px; color: var(--muted); margin: 0 2px 8px; }
+  .hint-facts { display: flex; flex-wrap: wrap; gap: 8px; }
+  .hint-facts span { flex: 1 1 200px; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 11px 14px; font-size: 14px; color: var(--muted); }
+  .hint-facts b { color: var(--accent); font-family: var(--display); font-size: 15px; }
+  .hint-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .hint-tags .chip { font-size: 12.5px; }
   .hint-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
   @media (max-width: 560px) { .hint-grid { grid-template-columns: 1fr; } }
   .hint-opt { display: flex; align-items: center; gap: 10px; padding: 7px 10px 7px 7px; border-radius: 12px; text-align: left; font-family: inherit; font-weight: 600; font-size: 14px; line-height: 1.25; }
@@ -130,6 +136,8 @@
   .reveal img { width: 100%; aspect-ratio: 460/215; object-fit: cover; border-radius: 10px; background: var(--panel-2); display: block; }
   .reveal .result { font-family: var(--display); font-weight: 700; font-size: 22px; letter-spacing: -.01em; }
   .reveal .result.good { color: var(--good); } .reveal .result.bad { color: var(--bad); }
+  .reveal .points { font-size: 15px; margin-left: 8px; padding: 2px 9px; border-radius: 999px; background: var(--panel-2); color: var(--muted); vertical-align: 2px; }
+  .reveal .result.good .points { background: #3ecf8e1f; color: var(--good); }
   .reveal .meta { color: var(--muted); font-size: 14px; margin: 2px 0 12px; }
   .reveal .meta a { color: var(--muted); }
   .reveal .row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
@@ -146,7 +154,7 @@
     <div class="logo">SmartBut<span>Game</span>Critic</div>
     <div class="hud" id="hud" hidden>
       <div class="chip">Round <b id="h-round">1</b>/<span id="h-total">10</span></div>
-      <div class="chip">Score <b id="h-score">0</b></div>
+      <div class="chip">Score <b id="h-score">0</b>/<span id="h-max">40</span></div>
       <div class="chip" id="h-streak-chip">Streak <b id="h-streak">0</b></div>
     </div>
   </div>
@@ -159,7 +167,8 @@
 
 <script>
 const PLAYER = 'SmartButAutistic';
-const LIVES = 3;
+const LIVES = 4;              // also the points a review is worth: one less for every wrong guess
+const DECOY_CHANCE = 0.10;    // per review, for a fake and again for another player's review
 const SPECIAL = { fake: { special: 'fake', name: 'Fake Review' }, stranger: { special: 'stranger', name: 'Not Sam Review' } };
 // Prefer the store's real image URLs (newer games use hashed paths); fall back to Steam's default layout.
 const img = (appid, kind) => DATA.images?.[appid]?.[kind === 'header' ? 0 : 1]
@@ -178,30 +187,51 @@ function intro() {
   $('#hud').hidden = true;
   const n = DATA.reviews.length;
   const modes = [10, 25].filter(m => m < n).map(m => `<button class="btn" data-n="${m}">${m} rounds</button>`).join('');
-  const decoys = (DATA.fakes?.length ? 1 : 0) + (DATA.strangers?.length ? 1 : 0);
-  const best = store.get('rr-best', null);
+  const decoys = DATA.fakes?.length || DATA.strangers?.length;
+  const best = store.get('rr-best2', null);
   $('#app').innerHTML = `
     <section class="hero">
       <h1>Which game is<br><em>${esc(PLAYER)}</em> talking about?</h1>
-      <p>${n} real ${esc(PLAYER)} Steam reviews where the game's name is hidden. Search his library and guess which game he's talking about. You get ${LIVES} tries per review.</p>
-      ${decoys ? `<p style="margin-top:-18px">Watch out: every game sneaks in one <b style="color:var(--text)">fake</b> and one review from <b style="color:var(--text)">another Steam player</b>. Call them out with the <b style="color:var(--text)">Fake Review</b> and <b style="color:var(--text)">Not Sam Review</b> buttons.</p>` : ''}
-      <div class="modes">${modes}<button class="btn" data-n="${n + decoys}">All ${n}</button></div>
-      <p class="fine">Type to search, ↑↓ and Enter to pick, Enter again for the next review.${best ? ` · Your best: ${best.score}/${best.total}` : ''}</p>
+      <p>${n} real ${esc(PLAYER)} Steam reviews where the game's name is hidden. Search his library and guess which game he's talking about. You get ${LIVES} guesses: nail it first try for ${LIVES} points, one point less for every guess you miss. Each miss also unlocks a hint.</p>
+      ${decoys ? `<p style="margin-top:-18px">Watch out: about one review in ten is a <b style="color:var(--text)">fake</b>, and another one in ten was written by <b style="color:var(--text)">someone else</b> — but a round can just as easily be neither. Call them out with the <b style="color:var(--text)">Fake Review</b> and <b style="color:var(--text)">Not Sam Review</b> buttons.</p>` : ''}
+      <div class="modes">${modes}<button class="btn" data-n="${n}" data-all="1">All ${n}</button></div>
+      <p class="fine">Type to search, ↑↓ and Enter to pick, Enter again for the next review.${best ? ` · Your best: ${best.score}/${best.max}` : ''}</p>
     </section>`;
-  $('#app').querySelectorAll('[data-n]').forEach(b => b.onclick = () => start(+b.dataset.n));
+  $('#app').querySelectorAll('[data-n]').forEach(b => b.onclick = () => start(+b.dataset.n, !!b.dataset.all));
 }
 
-function start(total) {
-  const pickOne = a => a[Math.random() * a.length | 0];
-  const decoys = [];
-  if (DATA.fakes?.length) decoys.push({ ...pickOne(DATA.fakes), kind: 'fake' });
-  if (DATA.strangers?.length) decoys.push({ ...pickOne(DATA.strangers), kind: 'stranger' });
-  const real = shuffle(DATA.reviews).slice(0, total - decoys.length).map(r => ({ ...r, kind: 'real' }));
-  total = real.length + decoys.length;
-  game = { rounds: shuffle([...real, ...decoys]), results: [], i: 0, score: 0, streak: 0, bestStreak: 0, answered: false };
+// Each round is a fake with DECOY_CHANCE, someone else's review with the same chance, otherwise
+// one of his. "All" keeps every real review and sprinkles the decoys in around them.
+function start(total, all) {
+  const draw = src => { let pool = []; return () => { if (!pool.length) pool = shuffle(src); return pool.pop(); }; };
+  const nextFake = draw(DATA.fakes || []), nextStranger = draw(DATA.strangers || []);
+  const roll = () => {
+    const r = Math.random();
+    if (r < DECOY_CHANCE && DATA.fakes?.length) return { ...nextFake(), kind: 'fake', hint: hintSource() };
+    if (r < 2 * DECOY_CHANCE && DATA.strangers?.length) {
+      const s = nextStranger();
+      return { ...s, kind: 'stranger', hint: hintSource(s.appid) };
+    }
+    return null;
+  };
+  const reals = shuffle(DATA.reviews).map(r => ({ ...r, kind: 'real', hint: hintSource(r.appid) }));
+  const rounds = [];
+  if (all) for (const r of reals) { rounds.push(r); const d = roll(); if (d) rounds.push(d); }
+  else while (rounds.length < total && reals.length) rounds.push(roll() || reals.pop());
+  game = { rounds: shuffle(rounds), results: [], i: 0, score: 0, streak: 0, bestStreak: 0, answered: false, total, all };
   $('#hud').hidden = false;
-  $('#h-total').textContent = total;
+  $('#h-total').textContent = game.rounds.length;
+  $('#h-max').textContent = game.rounds.length * LIVES;
   round();
+}
+
+// The hints always describe *his* history with the game: his hours, the day he reviewed it, its
+// tags. A fake has no game, so it borrows a review at random. Doing it any other way would
+// give the decoys away — another player's review is always recent, a fake has no date at all.
+function hintSource(appid) {
+  const r = DATA.reviews.find(x => x.appid === appid)
+    || DATA.reviews[Math.random() * DATA.reviews.length | 0] || {};
+  return { hours: parseFloat(r.hours), posted: r.posted, appid: r.appid };
 }
 
 const norm = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
@@ -240,6 +270,7 @@ function round() {
   game.answered = false;
   game.lives = LIVES;
   game.tried = [];
+  game.hintsUsed = 0;
   updateHud();
   $('#app').innerHTML = `
     <article class="card" id="card">
@@ -267,10 +298,11 @@ function round() {
       <button class="btn special" id="btn-stranger">🕵️ Not Sam Review</button>
     </div>
     <ul class="tried" id="tried"></ul>
-    <button class="btn hint-btn locked" id="hint-btn" aria-disabled="true">💡 Reveal a hint</button>
     <div id="hint"></div>
+    <button class="btn hint-btn locked" id="hint-btn" aria-disabled="true" data-lock="Unlocks when you miss a guess"></button>
     <div id="reveal"></div>`;
   setupSearch();
+  updateHintBtn();
   $('#giveup').onclick = () => answer(null);
   $('#btn-fake').onclick = () => answer(SPECIAL.fake);
   $('#btn-stranger').onclick = () => answer(SPECIAL.stranger);
@@ -347,7 +379,7 @@ function answer(guess) {
     if (guess.special) { $(`#btn-${guess.special}`).classList.add('wrong'); $(`#btn-${guess.special}`).disabled = true; }
     $('#tried').insertAdjacentHTML('beforeend', `<li>${esc(guess.name)}</li>`);
     if (game.lives > 0) {
-      if (game.lives === 1) { $('#hint-btn').classList.remove('locked'); $('#hint-btn').removeAttribute('aria-disabled'); }
+      updateHintBtn();
       input.value = '';
       $('#suggest').hidden = true;
       input.placeholder = `Nope. ${game.lives} guess${game.lives === 1 ? '' : 'es'} left…`;
@@ -359,7 +391,8 @@ function answer(guess) {
 
   game.answered = true;
   const guessNo = game.tried.length + 1;
-  if (right) { game.score++; game.streak++; game.bestStreak = Math.max(game.bestStreak, game.streak); $('#lives').classList.add('won'); }
+  const points = right ? game.lives : 0;  // 4 for a first-guess answer, one less per miss
+  if (right) { game.score += points; game.streak++; game.bestStreak = Math.max(game.bestStreak, game.streak); $('#lives').classList.add('won'); }
   else game.streak = 0;
   input.value = right ? guess.name : guess ? 'Out of guesses' : 'Gave up';
   input.disabled = true;
@@ -367,10 +400,10 @@ function answer(guess) {
   $('#search').classList.add(right ? 'correct' : 'wrong');
   $('#giveup').hidden = true;
   document.querySelectorAll('.special, .hint-opt').forEach(b => b.disabled = true);
-  $('#hint-btn').hidden = true;
+  updateHintBtn();
   if (r.kind === 'real') document.querySelector(`.hint-opt[data-appid="${r.appid}"]`)?.classList.add('correct');
   if (r.kind !== 'real') $(`#btn-${r.kind}`).classList.add('correct');
-  game.results[game.i] = right;
+  game.results[game.i] = points;
   updateHud();
   const last = game.i === game.rounds.length - 1;
   const cheers = r.kind === 'fake' ? ['Good eye. That was a fake.', 'Busted. He never wrote that.']
@@ -387,7 +420,7 @@ function answer(guess) {
     <div class="reveal">
       ${art}
       <div>
-        <div class="result ${right ? 'good' : 'bad'}">${right ? (guessNo === 1 ? pick(cheers) : `Got it on guess ${guessNo}.`) : pick(jeers)}</div>
+        <div class="result ${right ? 'good' : 'bad'}">${right ? (guessNo === 1 ? pick(cheers) : `Got it on guess ${guessNo}.`) : pick(jeers)}<span class="points">${points > 0 ? `+${points}` : '+0'}</span></div>
         <div class="meta">${meta}</div>
         <div class="row"><button class="btn primary" id="next">${last ? 'See results' : 'Next review'} →</button><span class="kbd">or press Enter</span></div>
       </div>
@@ -397,30 +430,74 @@ function answer(guess) {
   $('#reveal').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
-// Last-life hint: four games from the library. For a real review one of them is the answer;
-// for a fake or someone else's review, none of them are.
+// One hint per life lost. Everything they show exists for a fake and for another player's review
+// too (see disguise()), so taking a hint never tells you which kind of review you're looking at.
+const HINTS = [
+  { label: 'when he played it', title: 'hours played and the day it was reviewed', html: hintPlayed },
+  { label: 'what kind of game it is', title: 'its Steam tags', html: hintTags },
+  { label: 'four games to choose from', title: 'is it one of these?', html: hintChoices, wire: wireChoices },
+];
+
+function updateHintBtn() {
+  const btn = $('#hint-btn');
+  if (!btn) return;
+  if (game.answered || game.hintsUsed >= HINTS.length) { btn.hidden = true; return; }
+  const locked = game.hintsUsed >= LIVES - game.lives;
+  btn.hidden = false;
+  btn.textContent = `💡 Hint ${game.hintsUsed + 1}: ${HINTS[game.hintsUsed].label}`;
+  btn.classList.toggle('locked', locked);
+  if (locked) btn.setAttribute('aria-disabled', 'true'); else btn.removeAttribute('aria-disabled');
+}
+
 function showHint() {
-  const r = game.rounds[game.i], btn = $('#hint-btn');
+  const btn = $('#hint-btn');
   if (btn.classList.contains('locked')) { btn.classList.add('nudge'); clearTimeout(btn.nudge); btn.nudge = setTimeout(() => btn.classList.remove('nudge'), 1500); return; }
-  if (game.answered || game.lives !== 1 || $('#hint .hint-opt')) return;
-  $('#hint-btn').hidden = true;
+  if (game.answered || game.hintsUsed >= HINTS.length) return;
+  const r = game.rounds[game.i], hint = HINTS[game.hintsUsed];
+  $('#hint').insertAdjacentHTML('beforeend', `<div class="hint">
+    <div class="hint-label">💡 Hint ${game.hintsUsed + 1}: ${hint.title}</div>${hint.html(r)}</div>`);
+  const el = $('#hint').lastElementChild;
+  game.hintsUsed++;
+  hint.wire?.(el, r);
+  updateHintBtn();
+  el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+// Hint 1: how long he played it and the day he reviewed it.
+function hintPlayed(r) {
+  const { hours, posted } = r.hint;
+  const when = posted && new Date(`${posted}T12:00:00Z`);
+  return `<div class="hint-facts">
+    <span>⏱ <b>${isNaN(hours) ? 'No' : hours.toFixed(1)}</b> hours played</span>
+    <span>📅 reviewed <b>${when && !isNaN(when) ? when.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }) : 'at some point'}</b></span>
+  </div>`;
+}
+
+// Hint 2: the user tags from its Steam store page.
+function hintTags(r) {
+  const tags = DATA.tags?.[r.hint.appid] || [];
+  return tags.length
+    ? `<div class="hint-tags">${tags.map(t => `<span class="chip">${esc(t)}</span>`).join('')}</div>`
+    : `<div class="hint-facts"><span>Steam lists no tags for this one.</span></div>`;
+}
+
+// Hint 3: four games from the library. For a real review one of them is the answer;
+// for a fake or someone else's review, none of them are.
+function hintChoices(r) {
   const answerId = r.kind === 'real' ? r.appid : null;
   const pool = shuffle(DATA.games.filter(g => g.appid !== answerId && !game.tried.includes(g.appid)));
-  const options = shuffle(answerId ? [{ appid: r.appid, name: r.name }, ...pool.slice(0, 3)] : pool.slice(0, 4));
-  $('#hint').innerHTML = `
-    <div class="hint">
-      <div class="hint-label">💡 Hint: is it one of these?</div>
-      <div class="hint-grid">${options.map((g, i) => `<button class="btn hint-opt" data-i="${i}" data-appid="${g.appid}">
-        <img src="${img(g.appid, 'capsule_184x69')}" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
-        <span>${esc(g.name)}</span></button>`).join('')}</div>
-    </div>`;
-  $('#hint').querySelectorAll('.hint-opt').forEach(b => b.onclick = () => {
-    const g = options[+b.dataset.i];
-    const right = r.kind === 'real' && g.appid === r.appid;
-    if (!right) b.classList.add('wrong');
+  game.choices = shuffle(answerId ? [{ appid: r.appid, name: r.name }, ...pool.slice(0, 3)] : pool.slice(0, 4));
+  return `<div class="hint-grid">${game.choices.map((g, i) => `<button class="btn hint-opt" data-i="${i}" data-appid="${g.appid}">
+    <img src="${img(g.appid, 'capsule_184x69')}" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+    <span>${esc(g.name)}</span></button>`).join('')}</div>`;
+}
+
+function wireChoices(el, r) {
+  el.querySelectorAll('.hint-opt').forEach(b => b.onclick = () => {
+    const g = game.choices[+b.dataset.i];
+    if (!(r.kind === 'real' && g.appid === r.appid)) b.classList.add('wrong');
     answer(g);
   });
-  $('#hint').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
 function next() {
@@ -430,20 +507,20 @@ function next() {
 
 function finish() {
   $('#hud').hidden = true;
-  const { score } = game, total = game.rounds.length, pct = score / total;
-  const best = store.get('rr-best', null);
-  const isBest = !best || pct > best.score / best.total;
-  if (isBest) store.set('rr-best', { score, total });
+  const { score } = game, total = game.rounds.length, max = total * LIVES, pct = score / max;
+  const best = store.get('rr-best2', null);
+  const isBest = !best || pct > best.score / best.max;
+  if (isBest) store.set('rr-best2', { score, max });
   const verdict = pct === 1 ? `Perfect. Are you ${esc(PLAYER)}?` : pct >= .8 ? 'Certified best friend.' : pct >= .6 ? 'You clearly pay attention.' : pct >= .4 ? 'Decent. You’ve heard him talk.' : pct > .2 ? 'A few lucky guesses.' : 'Do you actually know this guy?';
   $('#app').innerHTML = `
     <section class="hero">
       <p style="margin-bottom:0">${verdict}</p>
-      <div class="big-score">${score}<small> / ${total}</small></div>
-      <p>Best streak: ${game.bestStreak}${isBest ? ' · <b style="color:var(--accent)">New personal best!</b>' : ''}</p>
+      <div class="big-score">${score}<small> / ${max}</small></div>
+      <p>${game.results.filter(p => p > 0).length}/${total} reviews placed · best streak: ${game.bestStreak}${isBest ? ' · <b style="color:var(--accent)">New personal best!</b>' : ''}</p>
       <div class="caught">${game.rounds.map((r, i) => r.kind === 'real' ? '' : `<span class="chip${game.results[i] ? ' hot' : ''}">${r.kind === 'fake' ? '🤖 Fake' : '🕵️ Not Sam'}: <b>${game.results[i] ? 'caught' : 'missed'}</b></span>`).join('')}</div>
       <div class="modes"><button class="btn primary" id="again">Play again</button><button class="btn" id="menu">Change length</button></div>
     </section>`;
-  $('#again').onclick = () => start(total);
+  $('#again').onclick = () => start(game.total, game.all);
   $('#menu').onclick = intro;
 }
 

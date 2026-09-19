@@ -1,9 +1,11 @@
 # SmartButGameCritic
 
 Read one of SmartButAutistic's Steam reviews with the game's name hidden, then guess the game.
-You get 3 guesses per review. Each game also includes one fake review and one review from
-another Steam player. Players have to call those out with the **Fake Review** and
-**Not Sam Review** buttons.
+You get 4 guesses per review, and the review is worth 4 points — one less for every guess you
+miss. Roughly 1 review in 10 is a fake and another 1 in 10 was written by a different Steam
+player; players have to call those out with the **Fake Review** and **Not Sam Review** buttons.
+Each missed guess also unlocks a hint: his playtime and review date, then the game's Steam
+tags, then four games to choose from.
 
 Live site: https://walton15.github.io/smartbutgamecritic/
 
@@ -20,14 +22,25 @@ Live site: https://walton15.github.io/smartbutgamecritic/
 | `fakes.json` | Fake reviews written in his style. |
 | `strangers.py` → `strangers.json` | Pool of reviews by other Steam players. |
 | `build.py` | Hides game names and builds `docs/data.json` from everything above. |
-| `cache/` | Cached Steam store lookups (developer/publisher names, image URLs). Committed so the daily refresh can use it. |
-| `.github/workflows/refresh-strangers.yml` | Picks a new pool of other-player reviews every day. |
+| `cache/` | Cached Steam store lookups (developer/publisher names, app type, user tags, genres/categories, image URLs). Committed so the daily refresh can use it. |
+| `.github/workflows/daily-refresh.yml` | Every day: imports new and edited reviews, picks a new pool of other-player reviews, rebuilds. |
 
 Requires Python 3.10+ (no extra packages).
 
 ## Importing new reviews
 
-Run these from the `smartbutgamecritic` folder.
+**This happens on its own every day.** The *Daily refresh* GitHub Action (09:17 UTC) re-reads
+his public reviews page — no Steam login needed — so new reviews, edited ones (text, hours,
+thumbs up/down) and deleted ones all reach the site the next morning. It rebuilds, commits and
+GitHub Pages redeploys. Two things are still yours to do:
+
+- **Check new reviews for giveaways.** When a run imports a new review, its commit is called
+  *Import new reviews* and the run's summary page (Actions tab → the run) lists them. Read those
+  and follow step 3 below if one names the game.
+- **Pull before you edit.** The Action commits to `main` daily, so run `git pull` first.
+
+To import right away, run it from the **Actions** tab (*Daily refresh* → *Run workflow*), or do
+it by hand with the steps below. Run these from the `smartbutgamecritic` folder.
 
 ### 1. Fetch his reviews
 
@@ -49,6 +62,12 @@ python build.py
 The build hides each game's title as `[GAME TITLE]`, including short forms, "2" vs "II" and
 acronyms. It hides developer and publisher names as `[DEVELOPER]` and links as `[LINK]`.
 New reviews are printed as `NEW ... check for giveaways`.
+
+**Demos are left out.** Reviews of demos never reach the site, and demos aren't offered as
+answers or used as decoys — the build asks the Steam store what each app is and drops
+anything of type `demo` (for a delisted app with no store page, a title like
+"Something Demo" is enough). Nothing to do by hand; collecting still picks them up, the
+build filters them and prints `skipped N demos`.
 
 ### 3. Check new reviews for giveaways
 
@@ -106,23 +125,41 @@ After this, `collect_reviews.py` keeps the library in place when it refreshes re
 
 ## Refreshing the decoys
 
-- **Reviews from other players:** a GitHub Action picks a new random pool of 45 every day
-  at 09:17 UTC and commits it. To refresh right away, run it from the repo's **Actions** tab
-  (*Refresh other-player reviews* → *Run workflow*), or locally run `python strangers.py 45`
+- **Reviews from other players:** the *Daily refresh* GitHub Action picks a new random pool
+  of 45 every day at 09:17 UTC and commits it. To refresh right away, run it from the repo's
+  **Actions** tab (*Daily refresh* → *Run workflow*), or locally run `python strangers.py 45`
   then `python build.py --strangers-only`. It filters out non-English reviews, slurs, ASCII
   art and junk, masks profanity with ♥ like Steam does, and skips reviews that still hint at
   the game once the title is hidden (series names, title words, `redactions.json` terms).
   If Steam returns too few reviews, the old pool is kept.
-- **Fake reviews:** edit `fakes.json`. Each entry is
+- **Fake reviews:** edit `fakes.json` (140 of them right now, drawn at random). Each entry is
   `{"recommended": true/false, "text": "..."}`. Write `[GAME TITLE]` where a game name would
-  go, so fakes look like his real (redacted) reviews. Run `python build.py`.
+  go, so fakes look like his real (redacted) reviews. Match the real ones on length and tone
+  as well: he writes a lot of one-liners and the occasional 700-word pros-and-cons post, so a
+  pile of same-sized fakes is a giveaway on its own. Run `python build.py`.
 
 ## Changing the rules
 
 At the top of the `<script>` in `docs/index.html`:
 
 - `PLAYER`: the name shown on the page.
-- `LIVES`: guesses per review.
+- `LIVES`: guesses per review, and also the points a review is worth. A correct first guess
+  scores the full `LIVES` points, each miss costs one, and running out scores nothing.
+- `DECOY_CHANCE`: the chance *per review* that a round is a fake, and again that it's another
+  player's review. At `0.10` a 10-round game averages 8 real reviews, 1 fake and 1 stranger,
+  but any given round can be anything. "All" mode plays every real review and sprinkles the
+  decoys in around them.
 
-Each game always contains 1 fake and 1 review from another player. "All" mode adds those 2
-on top of every real review.
+### Hints
+
+One hint unlocks per guess you miss, in this order:
+
+1. **Playtime and date** — his hours on record and the day he posted the review.
+2. **Steam tags** — the top 8 "Popular user-defined tags" from its store page (genres and categories if it has no store page). Tags that share a word with the title are left out.
+3. **Multiple choice** — four games from his library, one of which is the answer (unless the
+   round is a decoy, in which case none of them are).
+
+All three describe *his* history with the game, never the review on screen. That matters: a
+fake has no playtime or store page at all, and another player's review is always recent, so
+showing the review's own details would give every decoy away. A fake borrows a random review's
+numbers and a stranger's round uses his review of that same game.

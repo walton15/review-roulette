@@ -1,0 +1,50 @@
+name: Daily refresh
+
+on:
+  schedule:
+    - cron: "17 9 * * *"  # daily, 09:17 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      # His reviews page is public, so this needs no Steam login. It re-reads every review,
+      # which picks up new ones, edits (text, hours, thumbs up/down) and deletions.
+      - name: Fetch his reviews
+        id: collect
+        continue-on-error: true
+        run: python collect_reviews.py
+      - name: Pick a new pool of reviews from other players
+        run: python strangers.py 45
+      - name: Build the site data
+        if: steps.collect.outcome == 'success'
+        run: python build.py | tee build.log
+      # If Steam wouldn't serve his reviews today, still refresh the other-player pool.
+      - name: Build the other-player reviews only
+        if: steps.collect.outcome != 'success'
+        run: python build.py --strangers-only
+      - name: List new reviews to check for giveaways
+        if: steps.collect.outcome == 'success'
+        run: |
+          if grep -q "  NEW  " build.log; then
+            echo "## New reviews: check for giveaways" >> "$GITHUB_STEP_SUMMARY"
+            echo "Add anything that names the game to redactions.json (see README step 3)." >> "$GITHUB_STEP_SUMMARY"
+            grep "  NEW  " build.log | sed 's/^ *NEW */- /' >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Commit if anything changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+          git add strangers.json docs/data.json cache/appdetails.json
+          git diff --cached --quiet && exit 0
+          if grep -q "  NEW  " build.log 2>/dev/null; then msg="Import new reviews"; else msg="Daily refresh"; fi
+          git commit -m "$msg"
+          git push

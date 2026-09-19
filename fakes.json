@@ -1,42 +1,562 @@
 [
- {"recommended": true, "text": "Slaps harder than it has any right to. 8/10"},
- {"recommended": false, "text": "Total slop. Refunded after 90 minutes and I want those 90 minutes back"},
- {"recommended": true, "text": "IT'S A MASTAPIECEEEEEEEEEEE\n\n(the fishing minigame is mid though)"},
- {"recommended": false, "text": "Movement feels like walking through pudding. Needs another year in the oven minimum."},
- {"recommended": true, "text": "Played this with the boys and nobody spoke to each other for 3 days afterwards. 9/10"},
- {"recommended": true, "text": "monke approved"},
- {"recommended": false, "text": "Overrated as ♥♥♥♥. Pretty graphics do not make a good game, people. 4/10"},
- {"recommended": true, "text": "Short, sweet, and to the point. Great music, tight controls, a couple of annoying bosses. 7.5/10, worth a playthrough"},
- {"recommended": false, "text": "The devs added a battle pass to a single player game. Let that sink in."},
- {"recommended": true, "text": "Solid metroidvania. Map is kind of useless and the backtracking gets old, but the art style carries HARD. 7/10"},
- {"recommended": true, "text": "Cried twice. Not ashamed."},
- {"recommended": false, "text": "garbage wrapped in slightly nicer garbage"},
- {"recommended": true, "text": "Pros:\n-Combat is crunchy and fast\n-Soundtrack goes crazy\n-Boss designs are creative for the most part\n-Great performance, zero crashes\n\nCons:\n-Final area is a slog\n-Upgrade system is basically pointless\n-Story is forgettable\n\nStrong 8/10, would play again on hard"},
- {"recommended": false, "text": "Pros:\n-Nice graphics\n-Good voice acting for the main character\n\nCons:\n-Combat is stiff and unresponsive\n-Enemies are bullet sponges\n-Checkpoints are placed by someone who hates you\n-Crashed 4 times\n-Story goes nowhere\n-$60 for a 7 hour game with this much jank is insane\n\n4/10. Wait for a deep sale or skip it entirely."},
- {"recommended": true, "text": "[GAME TITLE] is basically Doom if Doom went to art school. Fast, stylish, a tad too short. 8/10"},
- {"recommended": true, "text": "Came for the co-op, stayed because my friend refused to let me leave. Genuinely a great time. 7/10"},
- {"recommended": false, "text": "Imagine Dead Space but every enemy is a hallway and every hallway is the same hallway. 3/10"},
- {"recommended": true, "text": "certified hood classic"},
- {"recommended": true, "text": "[GAME TITLE] does not reinvent anything, but everything it does it does well. Great pacing, solid puzzles, and one of the better endings I've seen this year. 8.5/10"},
- {"recommended": false, "text": "Early access or not, this is not acceptable. Falling through the map is not a feature. Total slop, check back in 2028."},
- {"recommended": true, "text": "Put 40 hours into this in a week and I regret nothing. Well, I regret my sleep schedule."},
- {"recommended": false, "text": "Boring. Just boring. Nothing is bad enough to be funny and nothing is good enough to be fun. 5/10"},
- {"recommended": true, "text": "Very good! Small spoilers below.\n\nPros\n-Art direction is incredible, some of the best I've seen in an indie\n-Main character is actually likable, which is rare\n-Puzzles never overstay their welcome\n-Music is excellent\n\nCons\n-Platforming is floaty\n-Chapter 4 drags heavily\n-The twist is visible from a mile away\n\n7.5/10 - and again, 7.5 is a GOOD score."},
- {"recommended": true, "text": "gun go boom brain go brrr"},
- {"recommended": false, "text": "I have never seen a game this confident about being this mediocre."},
- {"recommended": true, "text": "Better than the first one in every way except the soundtrack. 9/10"},
- {"recommended": false, "text": "The reviews lied to me. Clunky combat, empty world, and an inventory system from 2006. Stay away."},
- {"recommended": true, "text": "Surprisingly great. Went in expecting nothing and got one of the best boss rushes in recent memory. Some difficulty spikes are pure B.S., but still a must-play for souls-like fans. 8/10"},
- {"recommended": true, "text": "EDIT: beat it. Still slaps. Moving from 8/10 to 8.5/10."},
- {"recommended": false, "text": "The only thing scary about this horror game is the frame rate."},
- {"recommended": true, "text": "Chill, cozy, and dangerously addictive. Do not start this at 11pm."},
- {"recommended": false, "text": "Movement is clunky, the camera fights you, and every boss is a damage sponge. The art is gorgeous though, which makes it even more tragic. 5.5/10"},
- {"recommended": true, "text": "If you don't have fun with this game you need to go outside and touch grass. Then come back and play it again."},
- {"recommended": true, "text": "Not perfect, but the heart put into this is obvious. The devs clearly love the genre. A few bugs, a few cheap deaths, a whole lot of charm. 7/10"},
- {"recommended": false, "text": "What happened here. The first game was a masterpiece and this one feels like a mobile port. Sad."},
- {"recommended": true, "text": "one more run turned into 6 hours. send help"},
- {"recommended": false, "text": "$30 for a walking simulator where half the walking is backwards because you missed a collectible. Hard pass."},
- {"recommended": true, "text": "Quick breakdown:\n\n-Story is surprisingly solid\n-Gunplay is fun but gets repetitive around the halfway point\n-Side quests are mostly filler\n-Performance is great\n-The last boss is a genuine highlight\n\nOverall a solid 7/10, worth a playthrough on sale."},
- {"recommended": true, "text": "[GAME TITLE] is proof that indie devs are carrying the industry right now. Buy it."},
- {"recommended": false, "text": "Gave it 12 hours hoping it gets better. It does not get better."}
+ {
+  "recommended": true,
+  "text": "Slaps harder than it has any right to. 8/10"
+ },
+ {
+  "recommended": false,
+  "text": "Total slop. Refunded after 90 minutes and I want those 90 minutes back"
+ },
+ {
+  "recommended": true,
+  "text": "IT'S A MASTAPIECEEEEEEEEEEE\n\n(the fishing minigame is mid though)"
+ },
+ {
+  "recommended": false,
+  "text": "Movement feels like walking through pudding. Needs another year in the oven minimum."
+ },
+ {
+  "recommended": true,
+  "text": "Played this with the boys and nobody spoke to each other for 3 days afterwards. 9/10"
+ },
+ {
+  "recommended": true,
+  "text": "monke approved"
+ },
+ {
+  "recommended": false,
+  "text": "Overrated as ♥♥♥♥. Pretty graphics do not make a good game, people. 4/10"
+ },
+ {
+  "recommended": true,
+  "text": "Short, sweet, and to the point. Great music, tight controls, a couple of annoying bosses. 7.5/10, worth a playthrough"
+ },
+ {
+  "recommended": false,
+  "text": "The devs added a battle pass to a single player game. Let that sink in."
+ },
+ {
+  "recommended": true,
+  "text": "Solid metroidvania. Map is kind of useless and the backtracking gets old, but the art style carries HARD. 7/10"
+ },
+ {
+  "recommended": true,
+  "text": "Cried twice. Not ashamed."
+ },
+ {
+  "recommended": false,
+  "text": "garbage wrapped in slightly nicer garbage"
+ },
+ {
+  "recommended": true,
+  "text": "Pros:\n-Combat is crunchy and fast\n-Soundtrack goes crazy\n-Boss designs are creative for the most part\n-Great performance, zero crashes\n\nCons:\n-Final area is a slog\n-Upgrade system is basically pointless\n-Story is forgettable\n\nStrong 8/10, would play again on hard"
+ },
+ {
+  "recommended": false,
+  "text": "Pros:\n-Nice graphics\n-Good voice acting for the main character\n\nCons:\n-Combat is stiff and unresponsive\n-Enemies are bullet sponges\n-Checkpoints are placed by someone who hates you\n-Crashed 4 times\n-Story goes nowhere\n-$60 for a 7 hour game with this much jank is insane\n\n4/10. Wait for a deep sale or skip it entirely."
+ },
+ {
+  "recommended": true,
+  "text": "[GAME TITLE] is basically Doom if Doom went to art school. Fast, stylish, a tad too short. 8/10"
+ },
+ {
+  "recommended": true,
+  "text": "Came for the co-op, stayed because my friend refused to let me leave. Genuinely a great time. 7/10"
+ },
+ {
+  "recommended": false,
+  "text": "Imagine Dead Space but every enemy is a hallway and every hallway is the same hallway. 3/10"
+ },
+ {
+  "recommended": true,
+  "text": "certified hood classic"
+ },
+ {
+  "recommended": true,
+  "text": "[GAME TITLE] does not reinvent anything, but everything it does it does well. Great pacing, solid puzzles, and one of the better endings I've seen this year. 8.5/10"
+ },
+ {
+  "recommended": false,
+  "text": "Early access or not, this is not acceptable. Falling through the map is not a feature. Total slop, check back in 2028."
+ },
+ {
+  "recommended": true,
+  "text": "Put 40 hours into this in a week and I regret nothing. Well, I regret my sleep schedule."
+ },
+ {
+  "recommended": false,
+  "text": "Boring. Just boring. Nothing is bad enough to be funny and nothing is good enough to be fun. 5/10"
+ },
+ {
+  "recommended": true,
+  "text": "Very good! Small spoilers below.\n\nPros\n-Art direction is incredible, some of the best I've seen in an indie\n-Main character is actually likable, which is rare\n-Puzzles never overstay their welcome\n-Music is excellent\n\nCons\n-Platforming is floaty\n-Chapter 4 drags heavily\n-The twist is visible from a mile away\n\n7.5/10 - and again, 7.5 is a GOOD score."
+ },
+ {
+  "recommended": true,
+  "text": "gun go boom brain go brrr"
+ },
+ {
+  "recommended": false,
+  "text": "I have never seen a game this confident about being this mediocre."
+ },
+ {
+  "recommended": true,
+  "text": "Better than the first one in every way except the soundtrack. 9/10"
+ },
+ {
+  "recommended": false,
+  "text": "The reviews lied to me. Clunky combat, empty world, and an inventory system from 2006. Stay away."
+ },
+ {
+  "recommended": true,
+  "text": "Surprisingly great. Went in expecting nothing and got one of the best boss rushes in recent memory. Some difficulty spikes are pure B.S., but still a must-play for souls-like fans. 8/10"
+ },
+ {
+  "recommended": true,
+  "text": "EDIT: beat it. Still slaps. Moving from 8/10 to 8.5/10."
+ },
+ {
+  "recommended": false,
+  "text": "The only thing scary about this horror game is the frame rate."
+ },
+ {
+  "recommended": true,
+  "text": "Chill, cozy, and dangerously addictive. Do not start this at 11pm."
+ },
+ {
+  "recommended": false,
+  "text": "Movement is clunky, the camera fights you, and every boss is a damage sponge. The art is gorgeous though, which makes it even more tragic. 5.5/10"
+ },
+ {
+  "recommended": true,
+  "text": "If you don't have fun with this game you need to go outside and touch grass. Then come back and play it again."
+ },
+ {
+  "recommended": true,
+  "text": "Not perfect, but the heart put into this is obvious. The devs clearly love the genre. A few bugs, a few cheap deaths, a whole lot of charm. 7/10"
+ },
+ {
+  "recommended": false,
+  "text": "What happened here. The first game was a masterpiece and this one feels like a mobile port. Sad."
+ },
+ {
+  "recommended": true,
+  "text": "one more run turned into 6 hours. send help"
+ },
+ {
+  "recommended": false,
+  "text": "$30 for a walking simulator where half the walking is backwards because you missed a collectible. Hard pass."
+ },
+ {
+  "recommended": true,
+  "text": "Quick breakdown:\n\n-Story is surprisingly solid\n-Gunplay is fun but gets repetitive around the halfway point\n-Side quests are mostly filler\n-Performance is great\n-The last boss is a genuine highlight\n\nOverall a solid 7/10, worth a playthrough on sale."
+ },
+ {
+  "recommended": true,
+  "text": "[GAME TITLE] is proof that indie devs are carrying the industry right now. Buy it."
+ },
+ {
+  "recommended": false,
+  "text": "Gave it 12 hours hoping it gets better. It does not get better."
+ },
+ {
+  "recommended": true,
+  "text": "peak"
+ },
+ {
+  "recommended": true,
+  "text": "slaps unbelievably hard"
+ },
+ {
+  "recommended": false,
+  "text": "unplayable slop"
+ },
+ {
+  "recommended": true,
+  "text": "yeah this rules"
+ },
+ {
+  "recommended": false,
+  "text": "boring. next"
+ },
+ {
+  "recommended": true,
+  "text": "bought it for $4 and got $40 of fun out of it"
+ },
+ {
+  "recommended": true,
+  "text": "the goat"
+ },
+ {
+  "recommended": false,
+  "text": "how did this ship in this state"
+ },
+ {
+  "recommended": true,
+  "text": "fun as hell with friends, miserable alone"
+ },
+ {
+  "recommended": true,
+  "text": "my thumbs hurt and I am not done"
+ },
+ {
+  "recommended": false,
+  "text": "refunded in 22 minutes"
+ },
+ {
+  "recommended": true,
+  "text": "worth every penny and then some"
+ },
+ {
+  "recommended": false,
+  "text": "the tutorial is longer than my patience"
+ },
+ {
+  "recommended": true,
+  "text": "surprisingly emotional for a game about shooting people in the face"
+ },
+ {
+  "recommended": true,
+  "text": "yes"
+ },
+ {
+  "recommended": true,
+  "text": "banger soundtrack. everything else is good too but that soundtrack"
+ },
+ {
+  "recommended": true,
+  "text": "shut up and buy it"
+ },
+ {
+  "recommended": false,
+  "text": "pure slop. 2/10"
+ },
+ {
+  "recommended": true,
+  "text": "9/10, docking a point purely for the inventory screen"
+ },
+ {
+  "recommended": true,
+  "text": "beat it twice back to back"
+ },
+ {
+  "recommended": false,
+  "text": "I want those 6 hours back"
+ },
+ {
+  "recommended": true,
+  "text": "goofy ahh physics, incredible fun"
+ },
+ {
+  "recommended": false,
+  "text": "empty open world number 4,728"
+ },
+ {
+  "recommended": true,
+  "text": "one of the games of all time"
+ },
+ {
+  "recommended": true,
+  "text": "dad game. I am now the dad. 8/10"
+ },
+ {
+  "recommended": false,
+  "text": "crashes more than it runs"
+ },
+ {
+  "recommended": true,
+  "text": "no notes"
+ },
+ {
+  "recommended": true,
+  "text": "it's a 6/10 and 6/10 is a perfectly good score, people"
+ },
+ {
+  "recommended": false,
+  "text": "sold me an unfinished game and called it a roadmap"
+ },
+ {
+  "recommended": true,
+  "text": "took a nap afterwards. best sleep of my life"
+ },
+ {
+  "recommended": true,
+  "text": "every single second of this is a banger"
+ },
+ {
+  "recommended": false,
+  "text": "not broken, just deeply boring, which is worse"
+ },
+ {
+  "recommended": true,
+  "text": "played it on a whim at 2am, finished it at 7am"
+ },
+ {
+  "recommended": true,
+  "text": "gorgeous ♥♥♥♥. 9/10"
+ },
+ {
+  "recommended": false,
+  "text": "$40 for this. bold"
+ },
+ {
+  "recommended": true,
+  "text": "Combat is simple but it clicks around hour 3, and then it never stops clicking. 8/10"
+ },
+ {
+  "recommended": false,
+  "text": "Great idea, terrible execution. Everything is about 20% too slow and the camera is an active enemy."
+ },
+ {
+  "recommended": true,
+  "text": "Beat it in one sitting on a Saturday and immediately started a second run on the hardest difficulty. That should tell you enough."
+ },
+ {
+  "recommended": true,
+  "text": "The kind of game that respects your time. No bloat, no filler, no 400 collectibles scattered across a dead map. 8.5/10"
+ },
+ {
+  "recommended": false,
+  "text": "Stealth is broken, enemies see through walls, and the checkpoints are 15 minutes apart. 4/10"
+ },
+ {
+  "recommended": true,
+  "text": "[GAME TITLE] is dumb in the best possible way. Turn your brain off, aim at the thing, enjoy yourself."
+ },
+ {
+  "recommended": true,
+  "text": "Art direction carries this entire thing on its back. The gameplay is average at best but I could not stop looking at it."
+ },
+ {
+  "recommended": false,
+  "text": "It's a 7 hour game that thinks it's a 40 hour game. Cut a third of it and I'd be recommending this."
+ },
+ {
+  "recommended": true,
+  "text": "I am extremely bad at this game and I love it anyway. Skill issue. Mine. Entirely."
+ },
+ {
+  "recommended": false,
+  "text": "Combat is floaty as ♥♥♥♥ and enemies interrupt every attack you start. Hard pass at full price."
+ },
+ {
+  "recommended": true,
+  "text": "Runs perfectly on a potato. Somebody actually optimized something this year. 8/10"
+ },
+ {
+  "recommended": true,
+  "text": "Bought this as a joke and got genuinely invested in the story by hour two. 7.5/10"
+ },
+ {
+  "recommended": false,
+  "text": "Microtransactions in a $70 single player game. No. Not today."
+ },
+ {
+  "recommended": true,
+  "text": "[REDACTED] is one of the better written characters I've run into in years, and the rest of the cast keeps up. Play it."
+ },
+ {
+  "recommended": true,
+  "text": "The multiplayer is completely dead, which I say up front because it's half the store page and you should know. Nobody is queueing. I sat in a lobby for eleven minutes and then played against bots without being told they were bots, which I only figured out because one of them walked into a wall for a while.\n\nThe campaign, though, is genuinely good. It's about nine hours, it moves, and it doesn't pad itself with towers to climb or camps to clear. The set pieces near the end are the best part and the writing stays out of its own way. If they'd shipped this as a single player game for half the price nobody would have complained about anything.\n\n7/10 on sale, purely for the campaign. Ignore everything the store page says about a living world."
+ },
+ {
+  "recommended": false,
+  "text": "Every mechanic in here was done better somewhere else five years ago, and usually in the same genre."
+ },
+ {
+  "recommended": true,
+  "text": "The difficulty curve is a cliff and I respect it enormously.\n\nFirst two hours I was convinced it was badly balanced and unfair. It isn't. It's teaching you something and it refuses to tell you what. Once it clicked I went back to the section that had been killing me for 40 minutes and cleared it on the first try without taking a hit, which is the single best feeling this medium can produce and almost nothing does it anymore.\n\nThe complaints are real though. Checkpoints before long unskippable dialogue, one boss with an attack that is genuinely unreadable until you've seen it twice, and the hitboxes on the flying enemies are nonsense. I'd still take this over another game that holds my hand for 30 hours. Bring a controller and a support group. 9/10"
+ },
+ {
+  "recommended": true,
+  "text": "This is what happens when a small team is allowed to be weird. More of this, please. 8/10"
+ },
+ {
+  "recommended": false,
+  "text": "The performance patch made it worse. Impressive in its own way."
+ },
+ {
+  "recommended": true,
+  "text": "Simple premise, executed nearly perfectly, priced fairly. That used to be normal and now it's remarkable."
+ },
+ {
+  "recommended": false,
+  "text": "Menus, loading screens, cutscenes, more menus. I played maybe 40 minutes of actual game in three hours."
+ },
+ {
+  "recommended": true,
+  "text": "The movement alone is worth the money. Everything else is a bonus and most of the bonuses are good too."
+ },
+ {
+  "recommended": true,
+  "text": "Finished it, immediately bought a copy for my brother. 9/10"
+ },
+ {
+  "recommended": false,
+  "text": "Concept is genuinely great. Someone should make this game properly in about three years."
+ },
+ {
+  "recommended": true,
+  "text": "Held my attention for 30 hours, which is roughly 29 more than most things manage lately.\n\nWhat works: the core loop, which is simple enough to explain in a sentence and deep enough that I was still finding new approaches in the last few hours. The pacing, which knows when to shut up and let you play. The difficulty, which is fair even when it's mean. And the fact that it ends when it's done instead of at hour 60 because that's the number on the box.\n\nWhat doesn't: the UI is clearly a console port, the tutorial explains things you'd have worked out in ten seconds and doesn't explain the one thing you actually need, and there's a stretch around hour 20 where it repeats itself.\n\nSmall complaints against a game I've thought about every day since finishing it. 8/10"
+ },
+ {
+  "recommended": false,
+  "text": "Looks incredible in screenshots. Plays like it was assembled by committee. 5/10"
+ },
+ {
+  "recommended": true,
+  "text": "Absolutely no idea what was happening in the story and I had a fantastic time regardless."
+ },
+ {
+  "recommended": true,
+  "text": "Slapped hard for 15 hours, dipped a bit in the middle, then stuck the landing. 8/10"
+ },
+ {
+  "recommended": false,
+  "text": "Bought on sale and still feel overcharged. That takes effort."
+ },
+ {
+  "recommended": true,
+  "text": "Not a masterpiece and it doesn't pretend to be one. It's just a good, honest, well made game. 7.5/10"
+ },
+ {
+  "recommended": true,
+  "text": "Boss design here is genuinely excellent and it's most of why I'm recommending this.\n\nThere are 14 of them. Two are forgettable, three are annoying in the good way where you're annoyed at yourself, and the rest are the kind of fights people will still be posting clips of in five years. Every one of them teaches you something the next one expects you to know. That's hard to do and almost nobody bothers.\n\nThe stuff between the bosses is fine. Not great, fine. The exploration is a bit aimless, the loot is mostly numbers going up, and there's a crafting system that I ignored entirely with no consequences. None of that matters much when the peaks are this high.\n\n8.5/10"
+ },
+ {
+  "recommended": false,
+  "text": "The devs are responsive and clearly care, which makes it worse that the game itself is this rough."
+ },
+ {
+  "recommended": true,
+  "text": "I did not expect the sound design to be the best part. It's the best part."
+ },
+ {
+  "recommended": false,
+  "text": "This is a sequel to a game I loved, made by people who appear to have read a summary of it.\n\nEverything that was sharp is now smooth. The systems that used to interact now sit in separate menus. The thing the first one did that nobody else does has been replaced with the thing every other game does, presumably because a spreadsheet said the thing every other game does tests better.\n\nIt is not a broken game. It runs well, it looks better than the original, the voice work is fine. It's just been sanded down until there's nothing left to catch on. I finished it out of obligation and I've already forgotten most of it.\n\n5/10. Go play the first one again instead, it's eight years old and still better."
+ },
+ {
+  "recommended": true,
+  "text": "Played 4 hours straight without noticing the sun went down. That's the review."
+ },
+ {
+  "recommended": true,
+  "text": "Gorgeous, tight, and a little too short for what they're charging.\n\nI finished it in five and a half hours with most of the optional stuff done. At full price that stung. On sale it's an easy recommendation and I'd have said the same thing about it at any length, because there is not one wasted minute in it. Every area introduces something, uses it properly, and moves on. The last twenty minutes are excellent.\n\nThe one real problem is the checkpointing in the fourth area, which sent me back through a long walk three separate times for what was obviously a bug rather than a design choice. Patched now, apparently. Wasn't when I played it.\n\n8/10, 8.5 on sale, and I'll buy whatever they do next on day one."
+ },
+ {
+  "recommended": false,
+  "text": "Three separate currencies in a single player game. Somebody explain the thinking to me."
+ },
+ {
+  "recommended": true,
+  "text": "The first two hours are rough. Push through them. It turns into something special around the third chapter and by the end I genuinely didn't want it to finish. 8.5/10"
+ },
+ {
+  "recommended": true,
+  "text": "Co-op turned three grown adults into screaming children for an entire weekend. Highest praise I can give."
+ },
+ {
+  "recommended": false,
+  "text": "I kept playing because I assumed it had to get better eventually. It does not. Learn from my mistake."
+ },
+ {
+  "recommended": true,
+  "text": "Charming, funny, and very clearly made by people who were having a good time making it.\n\nIt's rough. The animations are stiff, half the menus look like placeholder, and there's a section in the back third where the difficulty falls off a table for no reason. Normally that stuff bothers me a lot. Here it reads as a small team spending their effort on the parts that matter, and the parts that matter are genuinely good: the writing is sharp, the jokes land more often than they don't, and there are at least four moments I'd call inspired.\n\nIt's also about eight hours and twenty bucks, which is exactly the right size and exactly the right price. More of this and fewer 80 hour open worlds, please.\n\n7.5/10"
+ },
+ {
+  "recommended": true,
+  "text": "Put 60 hours into this and I'm still finding things. Worth it at full price, which I do not say often."
+ },
+ {
+  "recommended": false,
+  "text": "Combat is one button held down for twelve hours.\n\nI'm not exaggerating for effect. There is a heavy attack, it is better than the light attack in every measurable way, it staggers everything in the game including the last boss, and nothing ever asks you to stop using it. I tried playing it the interesting way for a while. The game punished me for it.\n\nA story could carry that. This story cannot. It's a series of people explaining the plot to each other in rooms, and the one genuinely good scene is in the first hour.\n\nGraphics are great. Music is great. The people who made those two things deserved a better game to put them in. 4/10"
+ },
+ {
+  "recommended": true,
+  "text": "This is the most fun I've had being bullied by a video game since I was 14. Every death was my fault, which is the whole trick. 9/10"
+ },
+ {
+  "recommended": false,
+  "text": "Honestly might be fine in a year. Right now it's an alpha with a price tag and a trailer full of lies."
+ },
+ {
+  "recommended": true,
+  "text": "Went in blind on a recommendation and that was the right call. Don't watch trailers, just play it."
+ },
+ {
+  "recommended": true,
+  "text": "[GAME TITLE] does one thing and does it better than anything else out there. That's enough. 8.5/10"
+ },
+ {
+  "recommended": false,
+  "text": "The map is enormous and there is nothing on it. Miles of beautifully rendered nothing."
+ },
+ {
+  "recommended": true,
+  "text": "EDIT: 20 hours later and I'm raising this from 7 to 8. It gets much better once the third mechanic unlocks and the late game is excellent."
+ },
+ {
+  "recommended": true,
+  "text": "Cheap, short, brilliant. The whole thing is over in 4 hours and I thought about it for a week afterwards."
+ },
+ {
+  "recommended": false,
+  "text": "Physics based movement in a game that demands precision platforming. Somebody approved this."
+ },
+ {
+  "recommended": true,
+  "text": "Pros:\n-Movement is genuinely excellent, best in the genre right now\n-Enemy variety holds up the whole way through\n-Soundtrack absolutely goes\n-Runs flawlessly, not a single crash in 25 hours\n\nCons:\n-Story is nonsense\n-The stealth sections should not exist\n-Last boss is a huge difficulty spike out of nowhere\n\n8/10, would happily replay"
+ },
+ {
+  "recommended": false,
+  "text": "Pros:\n-Art is beautiful\n-Some of the music is great\n-Price is reasonable\n\nCons:\n-Combat has no weight to it whatsoever\n-Enemies respawn constantly and give nothing\n-Quest markers are wrong half the time\n-Crashed twice in the same cutscene\n-The ending is clearly setting up a sequel instead of ending\n\n4.5/10. Wait for a patch or three."
+ },
+ {
+  "recommended": true,
+  "text": "Very good, with caveats.\n\nPros\n-The core loop is tight and never got old for me\n-Excellent audio design, play this with headphones\n-Difficulty options are genuinely thoughtful\n-Tons of small details that show somebody cared\n\nCons\n-Inventory management is a nightmare\n-The middle third drags badly\n-Some quests just don't trigger\n\n7.5/10 and that is a good score."
+ },
+ {
+  "recommended": true,
+  "text": "Quick breakdown:\n\n-Gunplay is satisfying from minute one\n-Level design gets much better after the first area\n-Voice acting is a mixed bag but the main two are strong\n-Performance is solid, some stutter in the big open section\n-Genuinely great final act\n\nSolid 8/10. Full price is fine, sale price is a steal."
+ },
+ {
+  "recommended": false,
+  "text": "Things it does well:\n-Atmosphere\n-Sound\n-The opening hour\n\nThings it does badly:\n-Everything after the opening hour\n-Combat\n-Pacing\n-Saving, somehow\n\nThe first hour is so good that the rest feels like a betrayal. 5/10"
+ },
+ {
+  "recommended": true,
+  "text": "This is a hard one to score. The highs are genuinely as high as anything I've played this year, and the lows are tedious busywork that exists to pad the runtime. When it's on, it is completely on. When it isn't, you're walking back and forth across the same three rooms looking for a key. I'd still tell you to play it, but go in knowing you'll be skipping some of it. 7.5/10"
+ },
+ {
+  "recommended": true,
+  "text": "Everybody told me this was overrated and I went in ready to be unimpressed. It's not overrated. The writing is sharp, the combat has real depth once you stop mashing, and it never once wasted my time. The only genuine complaint I have is the camera in tight spaces, which is a problem roughly forever in this genre. 9/10, believe the hype for once."
+ },
+ {
+  "recommended": false,
+  "text": "I really wanted to like this. [DEVELOPER] has made things I love and the pitch here is great. But the execution is rough in every direction: the frame pacing is awful, the input delay is noticeable on mouse, enemies clip through geometry constantly, and the difficulty swings wildly between trivial and unfair within the same level. None of this is unfixable. None of it is fixed. 5/10 for now, and I'll happily change this if they sort it out."
+ },
+ {
+  "recommended": true,
+  "text": "Roughly 40 hours in and here's where I've landed. The early game is the weakest part, which is a strange choice, but once you're past it the systems start talking to each other and it becomes genuinely hard to put down. Build variety is real, not the fake kind where three options are viable. Enemy AI is smarter than it lets on. The endgame grind is a bit much and the UI is clearly designed for a controller, but neither ruined it for me. 8.5/10"
+ },
+ {
+  "recommended": false,
+  "text": "Gave this 12 hours because friends swore it opens up. It does open up, into a wider version of the same shallow thing. Every system is a menu, every menu is three menus, and underneath all of it is about 90 minutes of actual game repeated until you stop. The art is great and the music is great and I'm still not recommending it. 5/10"
+ },
+ {
+  "recommended": true,
+  "text": "Short review: buy it.\n\nLonger review: it costs less than a sandwich, it takes 3 hours, and it does something I haven't seen a game do before. Not everything lands. The final puzzle is obtuse in a way I don't think was intentional, and I had to look up one section. Doesn't matter. Play it, then go in blind on whatever these people make next. 9/10"
+ },
+ {
+  "recommended": true,
+  "text": "Bit of a mess and I loved it anyway. There's a genuinely great game in here fighting with a menu system designed by somebody's nephew. Combat is fast and reads well, the world is actually worth exploring, the loot is interesting more often than not. Then you open the map and lose ten minutes of your life. Still an easy recommendation. 8/10"
+ },
+ {
+  "recommended": false,
+  "text": "Early access, and I'd normally cut that slack, but this has been in early access for three years and the last update added a hat shop. The core is still unfinished. Enemies still T-pose. The netcode still desyncs after twenty minutes. Come back in 2028 and maybe we'll talk. Total slop until then."
+ },
+ {
+  "recommended": true,
+  "text": "Not for everyone and not trying to be, which I respect. It's slow, it's quiet, it asks you to pay attention, and if you do it pays that back with interest. The middle chapter alone is better than most full games I played last year. The performance is rough in one specific area and the subtitles are too small. Neither mattered by the end. 9/10"
+ }
 ]

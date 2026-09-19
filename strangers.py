@@ -5,7 +5,7 @@
 For random games he has reviewed, pulls a helpful English review from Steam's public
 review API and saves the raw pool to strangers.json. build.py redacts them like his.
 Re-running replaces the pool; delete entries from strangers.json to drop bad picks.
-A GitHub Action (.github/workflows/refresh-strangers.yml) re-runs this daily.
+A GitHub Action (.github/workflows/daily-refresh.yml) re-runs this daily.
 """
 import json
 import random
@@ -13,6 +13,7 @@ import re
 import sys
 import time
 import urllib.request
+from datetime import datetime, timezone
 from pathlib import Path
 
 from build import COMMON, TITLE, redact, title_variants
@@ -109,6 +110,8 @@ def main():
             pool.append({
                 "appid": appid, "recommended": rv["voted_up"], "text": text,
                 "hours": f"{hours:.1f} hrs at review time",
+                # Hint #1 shows when a review was written, so the decoys need a date too.
+                "posted": datetime.fromtimestamp(rv["timestamp_created"], timezone.utc).strftime("%Y-%m-%d"),
                 "url": f"https://steamcommunity.com/profiles/{rv['author']['steamid']}/recommended/{appid}/",
             })
             print(f"  {appid}: picked 1 of {len(candidates)}")

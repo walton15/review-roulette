@@ -14,6 +14,7 @@ import re
 import sys
 import time
 import urllib.request
+from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).parent
@@ -24,18 +25,73 @@ EDITION = re.compile(
     r"\s*[-:–—(]?\s*\b(game of the year|goty|definitive|enhanced|complete|deluxe|ultimate|anniversary|"
     r"special|director'?s cut|remastered|remake|legendary|gold|premium|standard|digital deluxe)\b.*$", re.I)
 CORP = re.compile(r",?\s*\b(inc|llc|ltd|limited|gmbh|co|corp|corporation|s\.?a|srl|ab|as|oy|pty|k\.?k)\b\.?$", re.I)
+DEMO_NAME = re.compile(r"(?<!\w)demos?(?!\w)", re.I)
+# Steam categories that say nothing about which game it is (hint #2 lists the rest).
+DULL_TAG = re.compile(r"remote play|family sharing|captions|commentary|dualshock|dualsense|steam input|"
+                      r"stereo sound|surround sound|camera comfort|custom volume|timed input|save anytime|"
+                      r"adjustable|screen reader|colou?r alternatives|subtitle|audio cue|mouse only|keyboard only|"
+                      r"steam cloud|trading cards|leaderboards|hdr available|notes available|^stats$", re.I)
+MONTHS = {m: i for i, m in enumerate(
+    "January February March April May June July August September October November December".split(), 1)}
 ROMAN = {"II": "2", "III": "3", "IV": "4", "V": "5", "VI": "6", "VII": "7", "VIII": "8", "IX": "9", "X": "10"}
 # Short fragments that are ordinary words; never redact these on their own.
 COMMON = {"the", "game", "games", "a", "an", "of", "and", "edition", "online", "simulator", "studio", "studios",
           "entertainment", "interactive", "software", "digital", "publishing", "team", "world", "war", "life"}
 
 
+USER_TAGS = 8  # about as many as the store page shows before its "+" button
+AGE_GATE = "birthtime=0; lastagecheckage=1-0-1990; wants_mature_content=1"
+
+
+def user_tags(appid):
+    """The "Popular user-defined tags" from the store page, most-voted first, as hint #2 shows them.
+    [] when the game has no store page any more (Steam redirects those to its front page)."""
+    req = urllib.request.Request(f"https://store.steampowered.com/app/{appid}/?l=english", headers={"Cookie": AGE_GATE})
+    for attempt in range(3):
+        try:
+            with urllib.request.urlopen(req, timeout=20) as r:
+                page = r.read().decode("utf8", "replace")
+            break
+        except Exception as e:  # rate limited (429) or transient
+            print(f"  store page {appid} failed ({e}); retrying")
+            time.sleep(30 * (attempt + 1))
+    else:
+        return []
+    return [clean(t) for t in re.findall(r'class="app_tag"[^>]*>\s*([^<]+?)\s*<', page)][:USER_TAGS]
+
+
+def tags_from(data):
+    """Genres then categories: hint #2's fallback for games without user tags."""
+    out = []
+    for item in (data.get("genres") or []) + (data.get("categories") or []):
+        label = clean(item.get("description"))
+        # Steam sometimes hands back an untranslated token like "#category_contrast_controls".
+        if label and not label.startswith("#") and label not in out and not DULL_TAG.search(label):
+            out.append(label)
+    return out[:12]
+
+
+def posted_date(posted, this_year):
+    """"Posted September 15." / "Posted March 13, 2020." -> "2020-03-13".
+    Steam leaves the year off reviews from the current year, meaning the year it was collected."""
+    m = re.search(r"([A-Z][a-z]+)\s+(\d{1,2})(?:,\s*(\d{4}))?", posted or "")
+    if not m or m.group(1) not in MONTHS:
+        return None
+    return f"{int(m.group(3) or this_year):04d}-{MONTHS[m.group(1)]:02d}-{int(m.group(2)):02d}"
+
+
 def fetch_details(appids):
     cache = json.loads(CACHE.read_text("utf8")) if CACHE.exists() else {}
     for appid in appids:
-        if "header_image" in cache.get(str(appid), {}):
+        if "user_tags" not in cache.get(str(appid), {}):
+            cache.setdefault(str(appid), {})["user_tags"] = user_tags(appid)
+            CACHE.parent.mkdir(exist_ok=True)
+            CACHE.write_text(json.dumps(cache, indent=1, ensure_ascii=False), "utf8")
+            time.sleep(1.6)
+        if {"header_image", "type", "tags"} <= cache[str(appid)].keys():
             continue
-        url = f"https://store.steampowered.com/api/appdetails?appids={appid}&filters=basic,developers,publishers&l=english"
+        url = (f"https://store.steampowered.com/api/appdetails?appids={appid}"
+               f"&filters=basic,developers,publishers,genres,categories&l=english")
         for attempt in range(3):
             try:
                 with urllib.request.urlopen(url, timeout=20) as r:
@@ -50,7 +106,8 @@ def fetch_details(appids):
         data = entry.get("data", {}) if entry.get("success") else {}
         # Newer games keep their art under hashed paths, so store the real image URLs.
         cache[str(appid)] = {**cache.get(str(appid), {}),
-                             **{k: data.get(k) for k in ("name", "developers", "publishers", "header_image", "capsule_imagev5")}}
+                             **{k: data.get(k) for k in ("name", "type", "developers", "publishers", "header_image", "capsule_imagev5")},
+                             "tags": tags_from(data)}
         CACHE.parent.mkdir(exist_ok=True)
         CACHE.write_text(json.dumps(cache, indent=1, ensure_ascii=False), "utf8")
         time.sleep(1.6)
@@ -69,6 +126,13 @@ def name_from_review_page(url):
 
 def clean(s):
     return re.sub(r"[™®©]", "", s or "").strip()
+
+
+def is_demo(details, name):
+    """Demos aren't games to guess, so they stay out of the reviews, the answer pool and the decoys.
+    The store says what an app is; delisted apps have no store page, so fall back to the title."""
+    kind = (details or {}).get("type")
+    return kind == "demo" if kind else bool(DEMO_NAME.search(name or ""))
 
 
 def title_variants(name):
@@ -132,9 +196,24 @@ def build_strangers(strangers_raw, pool, details, extra):
     for s in strangers_raw:
         d = details.get(str(s["appid"]), {})
         name = pool.get(s["appid"]) or clean(d.get("name")) or clean(d.get("fallback_name"))
-        if name:
-            strangers.append({**s, "name": name, "text": redact(s["text"], replacements_for(s["appid"], name, d, extra))})
+        if name and not is_demo(d, name):
+            # "posted" feeds hint #1, which has to read the same here as on his own reviews.
+            strangers.append({**s, "name": name, "posted": s.get("posted"),
+                              "text": redact(s["text"], replacements_for(s["appid"], name, d, extra))})
     return strangers
+
+
+def hint_tags(details):
+    """appid -> hint #2's list: the store page's user tags, else its genres and categories.
+    Leaves out tags that share a word with the title, like "Warhammer 40K" on a Warhammer game."""
+    words = lambda s: {w for w in re.findall(r"[a-z0-9]+", (s or "").lower()) if w not in COMMON and len(w) > 2}
+    out = {}
+    for a, d in details.items():
+        title = words(d.get("name")) | words(d.get("fallback_name"))
+        tags = [t for t in d.get("user_tags") or d.get("tags") or [] if not words(t) & title]
+        if tags:
+            out[a] = tags
+    return out
 
 
 def strangers_only():
@@ -146,6 +225,7 @@ def strangers_only():
     details = fetch_details(sorted({s["appid"] for s in strangers_raw}))
     pool = {g["appid"]: g["name"] for g in out["games"]}
     out["strangers"] = build_strangers(strangers_raw, pool, details, extra)
+    out["tags"] = {**out.get("tags", {}), **hint_tags(details)}
     target.write_text(json.dumps(out, ensure_ascii=False, indent=1), "utf8")
     print(f"Wrote docs/data.json: {len(out['strangers'])} other-player reviews")
 
@@ -156,12 +236,14 @@ def main():
     src = Path(sys.argv[1] if len(sys.argv) > 1 else ROOT / "steam-data.json")
     raw = json.loads(src.read_text("utf8"))
     extra = json.loads((ROOT / "redactions.json").read_text("utf8")) if (ROOT / "redactions.json").exists() else {}
+    this_year = (raw.get("collected") or "")[:4] or datetime.now(timezone.utc).year
 
     library = {g["appid"]: clean(g["name"]) for g in raw.get("games", [])}
     strangers_raw = json.loads((ROOT / "strangers.json").read_text("utf8")) if (ROOT / "strangers.json").exists() else []
     details = fetch_details(sorted(set(library) | {r["appid"] for r in raw["reviews"]} | {s["appid"] for s in strangers_raw}))
+    library = {a: n for a, n in library.items() if not is_demo(details.get(str(a), {}), n)}
 
-    reviews = []
+    reviews, demos = [], 0
     for r in raw["reviews"]:
         d = details.get(str(r["appid"]), {})
         name = library.get(r["appid"]) or clean(d.get("name"))
@@ -173,9 +255,13 @@ def main():
         text = r["text"].strip()
         if len(text) < 3:
             continue
+        if is_demo(d, name):  # demos aren't games to guess
+            demos += 1
+            continue
         reviews.append({
-            "appid": r["appid"], "name": name, "recommended": r["recommended"],
-            "hours": r["hours"], "url": r["url"], "text": redact(text, replacements_for(r["appid"], name, d, extra)),
+            "appid": r["appid"], "name": name, "recommended": r["recommended"], "hours": r["hours"],
+            "posted": posted_date(r.get("posted"), this_year), "url": r["url"],
+            "text": redact(text, replacements_for(r["appid"], name, d, extra)),
         })
 
     # Distractor pool: his library, plus reviewed games in case the library list is missing any.
@@ -190,7 +276,9 @@ def main():
            "games": [{"appid": a, "name": n} for a, n in sorted(pool.items(), key=lambda kv: kv[1].lower())],
            # appid -> [header, capsule] image URLs from the store (the site falls back to Steam's default path)
            "images": {a: [d.get("header_image"), d.get("capsule_imagev5")] for a, d in details.items()
-                      if d.get("header_image") or d.get("capsule_imagev5")}}
+                      if d.get("header_image") or d.get("capsule_imagev5")},
+           # appid -> user tags (or genres and categories), shown as hint #2
+           "tags": hint_tags(details)}
     target = ROOT / "docs" / "data.json"
     before = {r["appid"] for r in json.loads(target.read_text("utf8"))["reviews"]} if target.exists() else set()
     target.write_text(json.dumps(out, ensure_ascii=False, indent=1), "utf8")
@@ -198,7 +286,8 @@ def main():
         if before and rv["appid"] not in before:
             print(f"  NEW  {rv['appid']} {rv['name']}: check for giveaways -> {rv['text'][:300]!r}")
     print(f"Wrote docs/data.json: {len(reviews)} reviews, {len(pool)} games in the answer pool, "
-          f"{len(fakes)} fakes, {len(strangers)} other-player reviews")
+          f"{len(fakes)} fakes, {len(strangers)} other-player reviews"
+          + (f" (skipped {demos} demos)" if demos else ""))
 
 
 if __name__ == "__main__":

@@ -2105,40 +2105,382 @@
  ],
  "strangers": [
   {
-   "appid": 2313700,
+   "appid": 2350270,
    "recommended": true,
-   "text": "Really enjoyed this one. Tight and technical platforming, cute story, and excellent (although not very many) boss fights. It's a bit shorter, but it scratches all the big metroidvania itches and offers gentler vibes without sacrificing the challenging aspects of the genre.",
-   "hours": "23.4 hrs at review time",
-   "posted": "2026-09-14",
-   "url": "https://steamcommunity.com/profiles/76561199114000811/recommended/2313700/",
+   "text": "Fun little metroidvania that you can play locally with a friend or partner",
+   "hours": "1.4 hrs at review time",
+   "posted": "2026-09-02",
+   "url": "https://steamcommunity.com/profiles/76561198128299817/recommended/2350270/",
+   "name": "Primal Planet"
+  },
+  {
+   "appid": 858710,
+   "recommended": true,
+   "text": "Solid Mega Man-like, not really a huge fan of the melee style but honestly still fun.",
+   "hours": "4.5 hrs at review time",
+   "posted": "2026-09-10",
+   "url": "https://steamcommunity.com/profiles/76561197979895452/recommended/858710/",
+   "name": "Gravity Circuit"
+  },
+  {
+   "appid": 1941540,
+   "recommended": true,
+   "text": "its a [GAME TITLE] game. its a good [GAME TITLE] game. i enjoyed the story. if you enjoy [GAME TITLE] games you'll enjoy this one. that being said you're only going to get about 13 or so hours out of it if even that. For my part the way i see it is i effectively paid to play a long movie. That's kind how i see all the [GAME TITLE] games. if you like [GAME TITLE], get the game. if you haven't played  the other [GAME TITLE] games you can enjoy this just as much.",
+   "hours": "13.6 hrs at review time",
+   "posted": "2026-09-16",
+   "url": "https://steamcommunity.com/profiles/76561198160196062/recommended/1941540/",
+   "name": "Mafia: The Old Country"
+  },
+  {
+   "appid": 1222700,
+   "recommended": true,
+   "text": "7/10\nA good game with a short but interesting story. Perfect for those looking to have a fun time with a friend.",
+   "hours": "7.4 hrs at review time",
+   "posted": "2026-08-27",
+   "url": "https://steamcommunity.com/profiles/76561198808395105/recommended/1222700/",
+   "name": "A Way Out"
+  },
+  {
+   "appid": 2453160,
+   "recommended": false,
+   "text": "This is a beautiful game from an extremely creative and talented studio.  I love all their previous games and I love combo based skateboarding games and this falls short of being a fully realized version of either.  The controls are floaty and imprecise compared to arcade skating games and compared to the pathless.  The opportunities to do tricks for a reason are so rare and easy to miss, I cannot understand why the trick attack areas are treated like collectibles when they explore the game's mechanics more than the water restoration happening throughout the game.  If this was their first game I would call it promising but it's a huge step back for [DEVELOPER] and it bums me out to say that.  Play abzu or the pathless and if you want an ethereal emotional skateboarding game play skate story.",
+   "hours": "3.6 hrs at review time",
+   "posted": "2026-08-20",
+   "url": "https://steamcommunity.com/profiles/76561198025301366/recommended/2453160/",
+   "name": "Sword of the Sea"
+  },
+  {
+   "appid": 67370,
+   "recommended": true,
+   "text": "I'll get you back Jenny!!! Such an underrated classic now, first is more unique, but this plays better.",
+   "hours": "4.8 hrs at review time",
+   "posted": "2026-09-08",
+   "url": "https://steamcommunity.com/profiles/76561199852866409/recommended/67370/",
+   "name": "The Darkness II"
+  },
+  {
+   "appid": 2863640,
+   "recommended": true,
+   "text": "A very fun little game. Loved the art style and atmosphere of the environments and people you encounter. The monsters are very unsettling at times as well. Great sound and voice acting also make it a very memorable experience. Definitely recommend it.",
+   "hours": "4.8 hrs at review time",
+   "posted": "2026-09-08",
+   "url": "https://steamcommunity.com/profiles/76561198051952145/recommended/2863640/",
+   "name": "The Midnight Walk"
+  },
+  {
+   "appid": 1057090,
+   "recommended": true,
+   "text": "What a beautiful game.  I'm almost ashamed that it sat in my backlog for so long.\r\n\r\nMy only gripe with it is that they tried to make the final boss sympathetic.",
+   "hours": "44.5 hrs at review time",
+   "posted": "2026-08-22",
+   "url": "https://steamcommunity.com/profiles/76561198039543488/recommended/1057090/",
+   "name": "Ori and the Will of the Wisps"
+  },
+  {
+   "appid": 571310,
+   "recommended": true,
+   "text": "Really good game, keep coming back to it every few years (first on the 3DS and now here lol)",
+   "hours": "13.4 hrs at review time",
+   "posted": "2026-08-27",
+   "url": "https://steamcommunity.com/profiles/76561198045070852/recommended/571310/",
+   "name": "SteamWorld Dig 2"
+  },
+  {
+   "appid": 239820,
+   "recommended": true,
+   "text": "Fun game. Lots of potential to uplift gameplay. Generally enjoyed it",
+   "hours": "6.5 hrs at review time",
+   "posted": "2026-08-30",
+   "url": "https://steamcommunity.com/profiles/76561199139258906/recommended/239820/",
+   "name": "Game Dev Tycoon"
+  },
+  {
+   "appid": 3108510,
+   "recommended": true,
+   "text": "This game is clearly a labor of love. You can see so many references to other video games here, and it was an absolute blast to breeze through my first playthrough with one of my best friends. I hope to play another run in the future. It took us just under 6 hours to play. There are still achievements we needed to get, and even though we were thorough with our searching, I know we missed a lot of items and some other hidden areas. If you are on the fence with this one, don't be. Grab the game, along with a friend or two and get Flyin!",
+   "hours": "5.8 hrs at review time",
+   "posted": "2026-09-07",
+   "url": "https://steamcommunity.com/profiles/76561199004918126/recommended/3108510/",
+   "name": "FlyKnight"
+  },
+  {
+   "appid": 1663850,
+   "recommended": true,
+   "text": "Overall it's cool, but the ending part has a lot of shortcomings and the NPC storylines aren't explored enough",
+   "hours": "15.5 hrs at review time",
+   "posted": "2026-09-13",
+   "url": "https://steamcommunity.com/profiles/76561199387666510/recommended/1663850/",
+   "name": "REPLACED"
+  },
+  {
+   "appid": 1750030,
+   "recommended": false,
+   "text": "Goes on for way too long, with only two levels that are enjoyable. Although the puzzles were good. it also forces you to use the analog stick for tank controls.",
+   "hours": "4.7 hrs at review time",
+   "posted": "2026-08-31",
+   "url": "https://steamcommunity.com/profiles/76561199013419156/recommended/1750030/",
+   "name": "Post Trauma"
+  },
+  {
+   "appid": 4492700,
+   "recommended": false,
+   "text": "Felt more like I played a lost level rather than a proper dlc. Feels like content that should've been in the base game. First mission basically was a tutorial for returning players and the second tunes things up a little bit. But before you know it, it's over.\n\nFree ride challenges also, would have elevated the base game a notch or so. But doesn't really interest me after I've already beaten the game.\n\nI'm sure in a few years you'll be able to pick up \"[GAME TITLE] Old Country Definitive Edition\" for a better price.",
+   "hours": "0.0 hrs at review time",
+   "posted": "2026-08-24",
+   "url": "https://steamcommunity.com/profiles/76561198070055287/recommended/4492700/",
+   "name": "Mafia: The Old Country - Man of Honor"
+  },
+  {
+   "appid": 208200,
+   "recommended": true,
+   "text": "Old school FPS\r\n\r\nHas a kind of Half Life feel to it",
+   "hours": "8.2 hrs at review time",
+   "posted": "2026-09-10",
+   "url": "https://steamcommunity.com/profiles/76561197973690954/recommended/208200/",
+   "name": "DOOM 3"
+  },
+  {
+   "appid": 1935660,
+   "recommended": true,
+   "text": "Brilliant game. It was so fun and captivating. Keeps your attention right till the end. Such a great pick up for an evening game.",
+   "hours": "1.5 hrs at review time",
+   "posted": "2026-08-20",
+   "url": "https://steamcommunity.com/profiles/76561198080253142/recommended/1935660/",
+   "name": "Chop Goblins"
+  },
+  {
+   "appid": 2947440,
+   "recommended": false,
+   "text": "The game itself is fine, good story, graphics, fun puzzles and a nice art style. But all of that gets dragged down by a horrible gameplay loop, way too much focus on a clunky soulslike combat system, far too much enemy density in most areas create for a game where you can tell it doesn't know what it wants to be. You can't explore the gorgeous areas or take your time in these areas because there are upwards of 15 enemies around, and all three of your weapons are about to break because we totally needed a durability system",
+   "hours": "18.3 hrs at review time",
+   "posted": "2026-08-30",
+   "url": "https://steamcommunity.com/profiles/76561198138502676/recommended/2947440/",
+   "name": "SILENT HILL f"
+  },
+  {
+   "appid": 1139900,
+   "recommended": true,
+   "text": "I think this game is better than the sequel. I found the sequel to be a little easy and the challenge is part of what made this game fun for me. The DLC is very fun.",
+   "hours": "11.1 hrs at review time",
+   "posted": "2026-08-22",
+   "url": "https://steamcommunity.com/profiles/76561198710002718/recommended/1139900/",
+   "name": "Ghostrunner"
+  },
+  {
+   "appid": 1392860,
+   "recommended": false,
+   "text": "it was kinda mid tbh but maybe bc i was playing with someone who wasnt that fun LOL",
+   "hours": "4.5 hrs at review time",
+   "posted": "2026-08-25",
+   "url": "https://steamcommunity.com/profiles/76561199519340541/recommended/1392860/",
+   "name": "Little Nightmares III"
+  },
+  {
+   "appid": 367520,
+   "recommended": true,
+   "text": "10/10 game. I felt lost and frustrated with the game at first because I wasn’t very good and I kept getting lost all the time. I didn’t know where to go or what I was supposed to do but once the game started to click with me I could not put it down. The mechanics are great, it was fun exploring new areas, the lore is super cool and interesting. Highly recommend this game.",
+   "hours": "98.9 hrs at review time",
+   "posted": "2026-09-17",
+   "url": "https://steamcommunity.com/profiles/76561198752929078/recommended/367520/",
+   "name": "Hollow Knight"
+  },
+  {
+   "appid": 1875580,
+   "recommended": true,
+   "text": "Okay, this game has really good gameplay, yet it's the most rage-inducing game I've ever played. Unironically, I have played Elden Ring and this ♥♥♥♥ makes me more aggravated than any Souls game because they feel like they have a balanced healing, movement, and combat system. Although I did hate on it a bit, this is definitely a good game to give a try especially if you're looking for a challenge you masochists",
+   "hours": "20.1 hrs at review time",
+   "posted": "2026-09-15",
+   "url": "https://steamcommunity.com/profiles/76561198271909618/recommended/1875580/",
+   "name": "Mina the Hollower"
+  },
+  {
+   "appid": 683320,
+   "recommended": true,
+   "text": "I am completely mesmerized by sheer poetic beauty of this game. Gentle story, immersive soundtrack and brilliant watercolor-like visuals make it one of its kind. Strongly recommended.",
+   "hours": "2.5 hrs at review time",
+   "posted": "2026-09-13",
+   "url": "https://steamcommunity.com/profiles/76561198167652374/recommended/683320/",
+   "name": "GRIS"
+  },
+  {
+   "appid": 3764200,
+   "recommended": true,
+   "text": "Listen, i don't regret my purchase. The game was solid, love the storyline, loved the horror. They did a solid job, but damn, $70 for a linear story line game that only took 15 hours to complete is starting to ask a lot.",
+   "hours": "24.9 hrs at review time",
+   "posted": "2026-09-13",
+   "url": "https://steamcommunity.com/profiles/76561197971911556/recommended/3764200/",
+   "name": "Resident Evil Requiem"
+  },
+  {
+   "appid": 2124490,
+   "recommended": false,
+   "text": "Ran into the Knife bug glitch and can't progress. Been an issue since 2024. Fix your damn game.",
+   "hours": "16.8 hrs at review time",
+   "posted": "2026-08-24",
+   "url": "https://steamcommunity.com/profiles/76561199379459850/recommended/2124490/",
+   "name": "SILENT HILL 2"
+  },
+  {
+   "appid": 3164500,
+   "recommended": false,
+   "text": "Gets boring quick, once you have done everything there is not much replayability. And it seems as if there is no more updates to this game.",
+   "hours": "69.9 hrs at review time",
+   "posted": "2026-09-09",
+   "url": "https://steamcommunity.com/profiles/76561197960705482/recommended/3164500/",
+   "name": "Schedule I"
+  },
+  {
+   "appid": 2215200,
+   "recommended": true,
+   "text": "fun to free roam and chill in and the story is extravagent",
+   "hours": "45.5 hrs at review time",
+   "posted": "2026-08-26",
+   "url": "https://steamcommunity.com/profiles/76561199229947389/recommended/2215200/",
+   "name": "LEGO Batman: Legacy of the Dark Knight"
+  },
+  {
+   "appid": 2689470,
+   "recommended": true,
+   "text": "i have almost 2 hours on this game and i cant make it past floor 3 but its literally amazing\nsuper cool fun game but ♥♥♥♥ the stupid ass cultists coming out the toilet and ♥♥♥♥ the ♥♥♥♥♥♥♥ gambling dog ♥♥♥♥♥ that keeps getting me killed instead of giving me a can bruh",
+   "hours": "1.9 hrs at review time",
+   "posted": "2026-09-15",
+   "url": "https://steamcommunity.com/profiles/76561198995112176/recommended/2689470/",
+   "name": "CRUEL"
+  },
+  {
+   "appid": 1086940,
+   "recommended": true,
+   "text": "9.5 / 10 , The entire game itself is genuinely amazing , love it and I have zero complaints about its gameplay. My only problem is I cannot romance Withers , or my amazing lesbian couples , Isobel and Aylin .. What if I wanted to get my freak on with the power couple ? Or even the dead guy?!",
+   "hours": "109.2 hrs at review time",
+   "posted": "2026-09-17",
+   "url": "https://steamcommunity.com/profiles/76561199127271616/recommended/1086940/",
+   "name": "Baldur's Gate 3"
+  },
+  {
+   "appid": 3483740,
+   "recommended": true,
+   "text": "truly very chill game, i basically finished it and didn't do anything except buy stuff from the shop",
+   "hours": "43.7 hrs at review time",
+   "posted": "2026-09-10",
+   "url": "https://steamcommunity.com/profiles/76561198196805487/recommended/3483740/",
+   "name": "Cast n Chill"
+  },
+  {
+   "appid": 1325890,
+   "recommended": true,
+   "text": "i love labubu and i love my mom and my dad but one thing i love more is this game and every time i play it i finally feel alive and somtimes i dress in my moms cloths and i prance around the room  i also have no freinds and no job and somtimes i poke myself just to feel somthing",
+   "hours": "3.6 hrs at review time",
+   "posted": "2026-09-02",
+   "url": "https://steamcommunity.com/profiles/76561199506862051/recommended/1325890/",
+   "name": "SILT"
+  },
+  {
+   "appid": 3575300,
+   "recommended": false,
+   "text": "I dont know what they were thinking but the XMAS levels are so braindead and boring",
+   "hours": "6.4 hrs at review time",
+   "posted": "2026-09-13",
+   "url": "https://steamcommunity.com/profiles/76561199005181032/recommended/3575300/",
+   "name": "Climb The Backrooms"
+  },
+  {
+   "appid": 4519690,
+   "recommended": false,
+   "text": "The project had potential, demo was kinda glitchy and gameplay felt rusty, but story seemed appealing and wanted to try it out as it was supposed to be small indie developer. However it tourned out to be mid AI slop, so it's not worth to pay for.",
+   "hours": "0.7 hrs at review time",
+   "posted": "2026-08-20",
+   "url": "https://steamcommunity.com/profiles/76561198180356015/recommended/4519690/",
+   "name": "1666: Amsterdam (Prologue)"
+  },
+  {
+   "appid": 423230,
+   "recommended": true,
+   "text": "Genuinely one of the best games I've ever played in my life.",
+   "hours": "1.2 hrs at review time",
+   "posted": "2026-08-26",
+   "url": "https://steamcommunity.com/profiles/76561198163259477/recommended/423230/",
+   "name": "Furi"
+  },
+  {
+   "appid": 2584270,
+   "recommended": true,
+   "text": "Alright,all I gotta say is this game is metal asf and so brutal there’s no disappointment at all. I enjoyed it alot. Ever since the game had released I couldn’t get off the game and since I already put my hours in and pretty much finish the game now I’m just waiting for a DLC to drop and hoping it’s in the works.I do recommend it 100% even though I lost almost 300,000 gloom or more I was pissed haha. I also like how there was mini bosses in the game which made the story a little longer the parry is absolutely perfection and the parry grab kills is killer! But [GAME TITLE] is where it’s at! Idgaf if yall say it’s not a soul game or this and that or a different playstyle just play the fken game and enjoy it I get it there’s still some major bugs btw here’s my rate 10/10",
+   "hours": "77.0 hrs at review time",
+   "posted": "2026-09-04",
+   "url": "https://steamcommunity.com/profiles/76561199373434506/recommended/2584270/",
+   "name": "Mortal Shell II"
+  },
+  {
+   "appid": 1145360,
+   "recommended": true,
+   "text": "Well deserving of the recognition it has recieved. Great game that continues to surprise me even 75+ hours in.",
+   "hours": "75.5 hrs at review time",
+   "posted": "2026-08-24",
+   "url": "https://steamcommunity.com/profiles/76561198116344422/recommended/1145360/",
+   "name": "Hades"
+  },
+  {
+   "appid": 2416450,
+   "recommended": true,
+   "text": "the game is amazing, the artwork and story are pretty awesome, although the save system is my least favorite, I couldnt leave the level and head back to the office, so I couldnt get through the level and was stuck, now I have to start a new game which is super frustrating, but the game is fun so I still recommend",
+   "hours": "3.3 hrs at review time",
+   "posted": "2026-09-12",
+   "url": "https://steamcommunity.com/profiles/76561198351133049/recommended/2416450/",
+   "name": "MOUSE: P.I. For Hire"
+  },
+  {
+   "appid": 2313700,
+   "recommended": false,
+   "text": "i didn't get far enough to see the frustrating platforming that a lot of the other negative reviews seem to refer to, but i did get far enough within the 2 hours of playing to see that i was already 1/3rd of the way through the game. i consider this game to be overpriced if it's something i could potentially beat within 6 hours, and it doesn't wow me (it didn't, it was actually kinda meh). i didn't hit the 2 hour mark, so i ended up returning it. i may get it again one day, but it really has to bring its price down, or go on a huge sale (talkin $5-10 range).",
+   "hours": "1.6 hrs at review time",
+   "posted": "2026-09-17",
+   "url": "https://steamcommunity.com/profiles/76561198026057107/recommended/2313700/",
    "name": "Constance"
   },
   {
-   "appid": 2075800,
+   "appid": 1625450,
    "recommended": true,
-   "text": "With a little tweak of the settings and a prayer, pretty solid on the Steam Deck",
-   "hours": "1.8 hrs at review time",
-   "posted": "2026-08-27",
-   "url": "https://steamcommunity.com/profiles/76561199258568114/recommended/2075800/",
-   "name": "STAR WARS Zero Company"
+   "text": "This game is absudly difficult but it has a lot of fun mobs and mechanics. The only thing i dislike is the random bosses that spawn out of nowhere",
+   "hours": "3.0 hrs at review time",
+   "posted": "2026-09-10",
+   "url": "https://steamcommunity.com/profiles/76561199225685103/recommended/1625450/",
+   "name": "Muck"
   },
   {
-   "appid": 1108590,
+   "appid": 2680010,
    "recommended": true,
-   "text": "Great boss rush game. It is challenging, but pretty doable. There's a lot to be liked here, and it even leaves you longing for more - you can keep playing it for all the achievements and it honestly sounds like a good ride if you're into tough-to-beat games. I did half the achievements and I got my money's worth.\r\n\r\nSolid.",
-   "hours": "4.3 hrs at review time",
-   "posted": "2026-09-18",
-   "url": "https://steamcommunity.com/profiles/76561198089336474/recommended/1108590/",
-   "name": "Eldest Souls"
+   "text": "I really wish people would stop comparing every difficult action/souls-like game to FromSoftware and enjoy what they decided to play.\n\nHard games and connected levels existed way before Dark Souls/Elden Ring, and fanbases in other genres don't defend their favorite developers this aggressively.\n\nGenres like RTS games are more demanding on your reflexes and brainpower than learning a boss's attack pattern. Also, FromSoft games have their own clunky moments that fans just forgive as being 'intentional.'\n\nI actually enjoy non-FromSoft Souls-likes more, and [GAME TITLE] nails it with amazing art and great boss fights. Outside of a cluttered loot system, it’s a fun game to play if you judge it on its own merits.",
+   "hours": "75.4 hrs at review time",
+   "posted": "2026-08-21",
+   "url": "https://steamcommunity.com/profiles/76561198899398411/recommended/2680010/",
+   "name": "The First Berserker: Khazan"
   },
   {
-   "appid": 2420660,
+   "appid": 2255370,
+   "recommended": false,
+   "text": "I like these games, with Until Dawn being the best in the series, but this is lame compared to that. There’s no atmosphere thanks to the corny music between episodes, and the acting, directing and story is bad. It’s a cool concept as I love The Thing but executed poorly. \n\nI actually liked the stealth mechanics, as it added a new layer of gameplay, but the QTEs have been massively reduced, and I actually felt like I interacted with the game way more less that it’s predecessors.",
+   "hours": "6.5 hrs at review time",
+   "posted": "2026-08-24",
+   "url": "https://steamcommunity.com/profiles/76561198122116608/recommended/2255370/",
+   "name": "Directive 8020"
+  },
+  {
+   "appid": 3527760,
    "recommended": true,
-   "text": "Beautiful, emotional, and relaxing. \r\nThe music, art direction, and story were amazing from start to finish.\r\nThe colors look absolutely incredible on an OLED monitor, and the whole journey gave me the same special feeling I love in games like Ori.",
-   "hours": "5.0 hrs at review time",
-   "posted": "2026-09-05",
-   "url": "https://steamcommunity.com/profiles/76561199378851240/recommended/2420660/",
-   "name": "Neva"
+   "text": "Reminds me of Judge Dredd 2012, except it's [GAME TITLE]. This game would have been a 7 out of 10, but I kept having crashes and losing progress because some of the saves are stretched out and you can't make your own saves. Gameplay is overall the same as the first game, which is good shooting and fighting, but the story is again meh, just like the first one. I still really don't like the Unreal MetaHumans they use for all the characters. I found myself not really using any of the other upgrades I got for the pistol besides the first full auto mod, since that one's just the best. Anyway, this game overall is probably a 6 out of 10. It's definitely just an okay game id recommend to pick it up only on a sale unless your a super [GAME TITLE] fan. Man I'm glad that I'm done with this series.",
+   "hours": "7.8 hrs at review time",
+   "posted": "2026-09-01",
+   "url": "https://steamcommunity.com/profiles/76561199034695067/recommended/3527760/",
+   "name": "RoboCop: Rogue City - Unfinished Business"
+  },
+  {
+   "appid": 2997230,
+   "recommended": true,
+   "text": "As fantastic as first part! I absolutely loved ending, can't wait to see see what next! Thank you devs!",
+   "hours": "8.2 hrs at review time",
+   "posted": "2026-08-20",
+   "url": "https://steamcommunity.com/profiles/76561197990827704/recommended/2997230/",
+   "name": "Planet of Lana II"
   },
   {
    "appid": 3655390,
@@ -2150,364 +2492,22 @@
    "name": "Alien: Rogue Incursion Evolved Edition"
   },
   {
-   "appid": 1669420,
-   "recommended": true,
-   "text": "Awesome Metroidvania. Very charming art style, brisk pace to the upgrades, satisfying combat, non-frustrating exploration; really, really good stuff.",
-   "hours": "7.5 hrs at review time",
-   "posted": "2026-09-07",
-   "url": "https://steamcommunity.com/profiles/76561198084674074/recommended/1669420/",
-   "name": "Islets"
-  },
-  {
-   "appid": 1478500,
-   "recommended": true,
-   "text": "This is the greatest friend game I have every played, the best experience to have with your friends",
-   "hours": "13.1 hrs at review time",
-   "posted": "2026-08-21",
-   "url": "https://steamcommunity.com/profiles/76561198132022811/recommended/1478500/",
-   "name": "Big Walk"
-  },
-  {
-   "appid": 598550,
-   "recommended": true,
-   "text": "Good gameplay.  Fair difficulty.  Cool visuals.  Nice game all around.",
-   "hours": "3.1 hrs at review time",
-   "posted": "2026-09-08",
-   "url": "https://steamcommunity.com/profiles/76561198085327798/recommended/598550/",
-   "name": "HUNTDOWN"
-  },
-  {
-   "appid": 431240,
-   "recommended": true,
-   "text": "Played this while deployed.\n\nEntire 4-man team plays it.\n\nExclusively call each other slurs & insults while we rage at the game.\n\nTeam leader genuinely looked like he was going to rip my controller in half over the smallest screw-up. \n\nMy vocal cords have never been used this much since I was in recruit training.\n\nI've never been so angry at a video game in recent memory.\n\nI can't wait for the second one.",
-   "hours": "50.2 hrs at review time",
-   "posted": "2026-09-09",
-   "url": "https://steamcommunity.com/profiles/76561198447587794/recommended/431240/",
-   "name": "Golf With Your Friends"
-  },
-  {
-   "appid": 2947440,
-   "recommended": true,
-   "text": "Fantastic game, the sound and visuals were amazing 🐛",
-   "hours": "17.9 hrs at review time",
-   "posted": "2026-09-08",
-   "url": "https://steamcommunity.com/profiles/76561198785459645/recommended/2947440/",
-   "name": "SILENT HILL f"
-  },
-  {
-   "appid": 3483740,
-   "recommended": true,
-   "text": "this is such a relaxing game. i really like being able to just sit back, fish and take my time without feeling like i have to rush through everything. the atmosphere is really nice too. i just wanted a game where you don't have to think too much and this is perfect for that. it can get boring at times, but overall i really enjoyed it. definitely recommend.",
-   "hours": "0.3 hrs at review time",
-   "posted": "2026-09-06",
-   "url": "https://steamcommunity.com/profiles/76561199152256201/recommended/3483740/",
-   "name": "Cast n Chill"
-  },
-  {
-   "appid": 4656000,
-   "recommended": true,
-   "text": "My friends are blind, deaf, mute and dumb in the same time.\r\nPlease somebody help me save these apes from their own doom.\r\n\r\nJkjk, the game is awesome. Even tho we had really stressful and tense moments, I think all in all we all enjoyed our time and had plenty of fun even if it's mostly short lasted. Once everyone knows all the modules in and out, and figured out a strategy to communicate, it's too simple. But I can see how the game could update with more modes and ofc, more modules to give some more varity in the future.",
-   "hours": "5.6 hrs at review time",
-   "posted": "2026-09-08",
-   "url": "https://steamcommunity.com/profiles/76561198265498243/recommended/4656000/",
-   "name": "BOMBANANA!"
-  },
-  {
-   "appid": 367520,
-   "recommended": true,
-   "text": "One of the best games I've played, coming from someone who doesn't generally play platformers, metroidvanias, or souls-likes. Beautiful game, challenging gameplay, and incredible story and characters. Plenty for any type of player and it will be my life mission to platinum the game",
-   "hours": "48.8 hrs at review time",
-   "posted": "2026-09-16",
-   "url": "https://steamcommunity.com/profiles/76561198318975591/recommended/367520/",
-   "name": "Hollow Knight"
-  },
-  {
-   "appid": 1928690,
-   "recommended": true,
-   "text": "Great, challenging puzzle platformer. I couldn't put it down!",
-   "hours": "7.8 hrs at review time",
-   "posted": "2026-09-17",
-   "url": "https://steamcommunity.com/profiles/76561197993372438/recommended/1928690/",
-   "name": "Bionic Bay"
-  },
-  {
-   "appid": 2124490,
-   "recommended": true,
-   "text": "Never played [GAME TITLE] before but damn is this a good way to start one! The creepy atmosphere really builds up the second you start playing and the story is really good. \n\nNow we need [GAME TITLE] 1 and 3 versions to come out.",
-   "hours": "14.7 hrs at review time",
-   "posted": "2026-08-21",
-   "url": "https://steamcommunity.com/profiles/76561198304666059/recommended/2124490/",
-   "name": "SILENT HILL 2"
-  },
-  {
-   "appid": 3124230,
-   "recommended": true,
-   "text": "Beautiful game, captures the essence of classic 70s and 80s styled cinema and is a great spiritual successor to hotline miami. Can't wait to see more.",
-   "hours": "5.2 hrs at review time",
-   "posted": "2026-09-06",
-   "url": "https://steamcommunity.com/profiles/76561198261398432/recommended/3124230/",
-   "name": "Jackal"
-  },
-  {
-   "appid": 2997230,
-   "recommended": true,
-   "text": "I liked the first one a bit more than this one, but it still delivered. Mui i still trust in you! :(",
-   "hours": "5.3 hrs at review time",
-   "posted": "2026-08-24",
-   "url": "https://steamcommunity.com/profiles/76561198319395383/recommended/2997230/",
-   "name": "Planet of Lana II"
-  },
-  {
-   "appid": 2101960,
-   "recommended": false,
-   "text": "having to do 10 playthroughs for 100% is not fun nor a ''challenge'', S runs or speedruns are bad enough, but thats at least a challenge, in this game tho, you just have to play the game a lot of times with without nothing feeling different",
-   "hours": "30.4 hrs at review time",
-   "posted": "2026-08-26",
-   "url": "https://steamcommunity.com/profiles/76561198877107425/recommended/2101960/",
-   "name": "Cronos: The New Dawn"
-  },
-  {
    "appid": 1221250,
    "recommended": true,
-   "text": "A phenominal game with an amazing story, great characters and fantastic art!",
-   "hours": "16.1 hrs at review time",
-   "posted": "2026-09-10",
-   "url": "https://steamcommunity.com/profiles/76561198040699549/recommended/1221250/",
+   "text": "A very well written gem with an interesting art style that I came to really appreciate. My only criticism is that [GAME TITLE]'s ending is quite abrupt and leaves many questions unanswered, and not the usual \"left to the player's interpretation\" sort of way, it just ends. Otherwise it's a great game, Pawpaw was my favourite.",
+   "hours": "16.7 hrs at review time",
+   "posted": "2026-09-12",
+   "url": "https://steamcommunity.com/profiles/76561198007688311/recommended/1221250/",
    "name": "NORCO"
   },
   {
-   "appid": 413150,
+   "appid": 2361770,
    "recommended": true,
-   "text": "perfect to either play vanilla or modded version to expand the storylines and quests... perfect way to have fun",
-   "hours": "91.6 hrs at review time",
-   "posted": "2026-08-31",
-   "url": "https://steamcommunity.com/profiles/76561198836000582/recommended/413150/",
-   "name": "Stardew Valley"
-  },
-  {
-   "appid": 1608230,
-   "recommended": true,
-   "text": "Such a great and refreshing game. Nothing bad to report, was so awesome!",
-   "hours": "10.8 hrs at review time",
-   "posted": "2026-09-13",
-   "url": "https://steamcommunity.com/profiles/76561198209330388/recommended/1608230/",
-   "name": "Planet of Lana"
-  },
-  {
-   "appid": 1030300,
-   "recommended": true,
-   "text": "What is there to say, that hadn't been said already...\r\nFantastic game, great successor to [GAME TITLE], enemies still deal contact-damage when stunned (piece of garbage).\r\nSteel Soul is far more punishing than it was in the first game, but vanilla gameplay is really fun and charming.",
-   "hours": "109.6 hrs at review time",
-   "posted": "2026-09-15",
-   "url": "https://steamcommunity.com/profiles/76561198446788665/recommended/1030300/",
-   "name": "Hollow Knight: Silksong"
-  },
-  {
-   "appid": 40800,
-   "recommended": true,
-   "text": "Really fun and punishing game. Really enjoyed trying to get the perfect runs. The mass replay of all your failures is cool.",
-   "hours": "10.9 hrs at review time",
-   "posted": "2026-09-01",
-   "url": "https://steamcommunity.com/profiles/76561197973535672/recommended/40800/",
-   "name": "Super Meat Boy"
-  },
-  {
-   "appid": 1612420,
-   "recommended": true,
-   "text": "so much fun. I love john wick movies so when I saw this I had to give it a try. Its really fun. Captrues the essence of john wick and mixes in a bit of classic max payne.\n\nAn absolute bargain of a game. Really fun.",
-   "hours": "0.6 hrs at review time",
-   "posted": "2026-08-31",
-   "url": "https://steamcommunity.com/profiles/76561199522078775/recommended/1612420/",
-   "name": "Suit for Hire"
-  },
-  {
-   "appid": 1087760,
-   "recommended": false,
-   "text": "Its kind of buggy and really short. I can't really recommend it",
-   "hours": "6.1 hrs at review time",
-   "posted": "2026-09-15",
-   "url": "https://steamcommunity.com/profiles/76561198009648935/recommended/1087760/",
-   "name": "The Gunk"
-  },
-  {
-   "appid": 2680010,
-   "recommended": true,
-   "text": "Probably one of the most enjoyable stories I've played since God of War 2018, and difficult as all hell to boot. Play this game, its fun and you can get every achievement on one run through the game if you try. 10/10",
-   "hours": "97.1 hrs at review time",
-   "posted": "2026-09-12",
-   "url": "https://steamcommunity.com/profiles/76561198839718064/recommended/2680010/",
-   "name": "The First Berserker: Khazan"
-  },
-  {
-   "appid": 671860,
-   "recommended": false,
-   "text": "Game was so much fun. Felt like the old lobbies, dudes smack talking saying off the wall stuff, blasting music. And the devs ended up killing it by messing up.the balances and then abandoning it. Truly ashamed.\n\nThey also ended up recording your in game chat for moderation. If you can't handle smack talk mute the mics.",
-   "hours": "10.7 hrs at review time",
-   "posted": "2026-08-21",
-   "url": "https://steamcommunity.com/profiles/76561198171706418/recommended/671860/",
-   "name": "BattleBit Remastered"
-  },
-  {
-   "appid": 1750030,
-   "recommended": false,
-   "text": "i really wanted to like it but its primarily a puzzle game and a not very good one at that.\nit youre looking for a game like the old resident evil games i would highly recommend a game called Echoes of the Living.",
-   "hours": "4.3 hrs at review time",
-   "posted": "2026-08-24",
-   "url": "https://steamcommunity.com/profiles/76561199569780137/recommended/1750030/",
-   "name": "Post Trauma"
-  },
-  {
-   "appid": 698670,
-   "recommended": true,
-   "text": "Atmosferi, sanat tarzı ve tekinsizliğiyle şimdilik en sevdiğim oyun olur kendisi. Bu oyundan ne beklediğinizi bilerek alın. Giger’e burdan selamlar.",
-   "hours": "10.6 hrs at review time",
-   "posted": "2026-09-10",
-   "url": "https://steamcommunity.com/profiles/76561198744985640/recommended/698670/",
-   "name": "Scorn"
-  },
-  {
-   "appid": 260230,
-   "recommended": true,
-   "text": "Insanely good hidden gem title from [DEVELOPER]\n\n9/10",
-   "hours": "3.1 hrs at review time",
-   "posted": "2026-09-08",
-   "url": "https://steamcommunity.com/profiles/76561199067851970/recommended/260230/",
-   "name": "Valiant Hearts: The Great War / Soldats Inconnus : Mémoires de la Grande Guerre"
-  },
-  {
-   "appid": 242760,
-   "recommended": true,
-   "text": "4.5/5 The story was captivating if not a little predictable, and I really enjoyed the game play.",
-   "hours": "18.1 hrs at review time",
-   "posted": "2026-09-12",
-   "url": "https://steamcommunity.com/profiles/76561198351586752/recommended/242760/",
-   "name": "The Forest"
-  },
-  {
-   "appid": 4519690,
-   "recommended": false,
-   "text": "The use of AI as a replacement of actual artists is spitting in the face of the art that is videogames. AI can’t make art.\n\nFurthermore the demo is poorly optimized for portable devices. Even on lower settings it runs poorly.",
-   "hours": "1.6 hrs at review time",
-   "posted": "2026-08-22",
-   "url": "https://steamcommunity.com/profiles/76561198129262899/recommended/4519690/",
-   "name": "1666: Amsterdam (Prologue)"
-  },
-  {
-   "appid": 3108510,
-   "recommended": true,
-   "text": "Had a blast playing this, might be a little jarring with the animation smoothness on rougher timings but all in all great gameplay, a little short but thats to be expected for 5 bucks.\ngreat performance even on a potato.\ncant wait for a new game in this style and if the dev ever reads this please stick to the voxel artstyle.",
-   "hours": "3.6 hrs at review time",
-   "posted": "2026-09-02",
-   "url": "https://steamcommunity.com/profiles/76561199484973425/recommended/3108510/",
-   "name": "FlyKnight"
-  },
-  {
-   "appid": 2186990,
-   "recommended": false,
-   "text": "For now, the combat has no crunch. Magic feels weak, the kick is weak, its a dodge fest. It's very slow paced mechanically. The game itself is beautiful. It has a well-designed atmosphere and theme. The voice acting and sound quality is great. I just cant recommend it with the current combat until its polished. It definitely feels behind compared to even older games much like it in that area.",
-   "hours": "1.2 hrs at review time",
-   "posted": "2026-09-03",
-   "url": "https://steamcommunity.com/profiles/76561198048482618/recommended/2186990/",
-   "name": "Fatekeeper"
-  },
-  {
-   "appid": 1935660,
-   "recommended": true,
-   "text": "this is a very fun game you will probably get about an hour out of it but id say theres definetly atleast 5 if you play it again on higher difficulty and play the remix levels if you liked dusk defintely play it. the guns feel good bit simple but not to a fault its on sale often  overall very charming and if you get it on sale definetly worth it 8/10",
-   "hours": "7.0 hrs at review time",
-   "posted": "2026-08-29",
-   "url": "https://steamcommunity.com/profiles/76561198684950875/recommended/1935660/",
-   "name": "Chop Goblins"
-  },
-  {
-   "appid": 461950,
-   "recommended": true,
-   "text": "Absolutely wonderful game, but the endings left a bad taste in my mouth. Pretty anti-climatic. Otherwise, pretty damn good. Not for everyone though.",
-   "hours": "10.0 hrs at review time",
-   "posted": "2026-09-09",
-   "url": "https://steamcommunity.com/profiles/76561199463915949/recommended/461950/",
-   "name": "Beat Cop"
-  },
-  {
-   "appid": 3011030,
-   "recommended": true,
-   "text": "On the surface -- very fun and atmospheric turn-based RPG with surrealist horror themes and unique mechanics. Then you dig a layer deeper. And another layer deeper. And another layer deeper.\r\n\r\nIncredible story and storytelling, as well as a fascinating metacommentary on the act of creation. Cannot recommend enough for people who love WEIRD games where the game mechanics are part of the story.",
-   "hours": "15.7 hrs at review time",
-   "posted": "2026-09-09",
-   "url": "https://steamcommunity.com/profiles/76561198058971268/recommended/3011030/",
-   "name": "NO-SKIN"
-  },
-  {
-   "appid": 1382190,
-   "recommended": true,
-   "text": "Besides the fact this game has no one playing it. My friend and I bought the game. We had a ♥♥♥♥♥♥♥ blast. The bots do try to murder you if they are the killer. They do collect resources and hoard them sometimes. This game is fun to play with friends. A dead game is only dead until people revive it. Does it need some optimization? Yeah, a bit, there is a delay in when the game announces someone dies. A mic bug that's solved by leaving the lobby and coming back. Those are my biggest issues. However, I love the look of it cause it's like those old PS2 games honestly. I've seen worse graphics. This game is fun and we bought it on a sale. Major props to the Dev who kept putting out content and bug fixes when the game slowed down. Even put out a Halloween event. I hope it comes out this year too, cause I would like to play it with my friends.",
-   "hours": "1.9 hrs at review time",
-   "posted": "2026-08-29",
-   "url": "https://steamcommunity.com/profiles/76561198237173674/recommended/1382190/",
-   "name": "Killer in the cabin"
-  },
-  {
-   "appid": 2129530,
-   "recommended": true,
-   "text": "hi as tom the ♥♥♥♥ eater pearl it really helped me cure my ♥♥♥♥ cravings by playing this game if anyone has ♥♥♥♥ cravings play this.",
-   "hours": "7.6 hrs at review time",
-   "posted": "2026-09-18",
-   "url": "https://steamcommunity.com/profiles/76561199798070775/recommended/2129530/",
-   "name": "REANIMAL"
-  },
-  {
-   "appid": 1314000,
-   "recommended": true,
-   "text": "It is a surprisingly enjoyable blend of souls-like combat and action RPG progression, wrapped in a rich and atmospheric Greek mythology setting.",
-   "hours": "32.9 hrs at review time",
-   "posted": "2026-08-31",
-   "url": "https://steamcommunity.com/profiles/76561198386654293/recommended/1314000/",
-   "name": "Achilles: Legends Untold"
-  },
-  {
-   "appid": 534550,
-   "recommended": false,
-   "text": "In order to get the good ending, you have to play very hard platforming levels and in those levels they pair the inconsistent mechanic with the requirement of a precise timing and positioning, the result is very very bad experience.\n\nThe game doesn't have a good quick travel system, you can only teleport from one main area to other main area other than that you have to walk, it is tedious.",
-   "hours": "11.1 hrs at review time",
-   "posted": "2026-09-12",
-   "url": "https://steamcommunity.com/profiles/76561198018607204/recommended/534550/",
-   "name": "Guacamelee! 2"
-  },
-  {
-   "appid": 858710,
-   "recommended": true,
-   "text": "One absolutely awesome MM like game and they even making a 2nd game currently! Can't wait and hope they keep going with the series!",
-   "hours": "3.9 hrs at review time",
-   "posted": "2026-09-06",
-   "url": "https://steamcommunity.com/profiles/76561199128840370/recommended/858710/",
-   "name": "Gravity Circuit"
-  },
-  {
-   "appid": 4492700,
-   "recommended": false,
-   "text": "its 3 missions... less than an hour of playtime in the game. it is inserted into the main game if you new game it and you don't realize you played it till the achievement pops. only buy if you can get the bundle. you can tell this was a cash grab and cut out of the main game to be sold as dlc. no dev can make any dlc that slides into a main game without hiccups unless it was already made and cut out. not even CDPR could do it. the devs lied.",
-   "hours": "0.0 hrs at review time",
-   "posted": "2026-08-21",
-   "url": "https://steamcommunity.com/profiles/76561198197392291/recommended/4492700/",
-   "name": "Mafia: The Old Country - Man of Honor"
-  },
-  {
-   "appid": 1299290,
-   "recommended": true,
-   "text": "Very impressed with how good this feels to play. From the Directional Air Dash to the Parries everything feels very crisp and great to control. The animation work on enemies is genuinely outstanding as well. Attacks are very intuitive to read and don't require you to just learn patterns by memory. The very high quality on most animations does make it noticeable when something isn't quite at the same level (the death animation when you fall in a pit for example), but I think speaks more so to how well everything else is done when something sticks out by just being 'okay'.\n\nGorgeous Metroidvania with great game feel. Big thumbs up!",
-   "hours": "0.5 hrs at review time",
-   "posted": "2026-09-12",
-   "url": "https://steamcommunity.com/profiles/76561198060872962/recommended/1299290/",
-   "name": "Somber Echoes"
-  },
-  {
-   "appid": 1374970,
-   "recommended": true,
-   "text": "I enjoyed this game greatly maybe it felt a little short for me, but overall it's a 9/10\r\nThe Story is intriguing and it was fun trying to figure it along the way with a satisfying ending.\r\nBattle mechanics was easy to learn and enact\r\nI find pixel styled games charming, the art in [GAME TITLE] is simply gorgeous and the movement is smooth and nice to look at. Fav regions were definitely the Apex and the Depths.\r\nThe voice acting is great in the cutcienes and music is especially, it really helps sets the tone.\r\nThe only real complaint is a bug with the earrings. On the right on the mirror of Lajos rest the mark is supposed to be in the room below. In The Apex on the left uper side on the map is a hidden one, not sure if it's a bug",
-   "hours": "26.7 hrs at review time",
-   "posted": "2026-09-14",
-   "url": "https://steamcommunity.com/profiles/76561199889045866/recommended/1374970/",
-   "name": "Moonscars"
+   "text": "[GAME TITLE] de verdade. Fases imensas, muito malabarismo, espada > kunai, chefes legaizinhos. Faltou MSG nesse arroz mas o visual e' de matar. Recomendo",
+   "hours": "84.7 hrs at review time",
+   "posted": "2026-08-30",
+   "url": "https://steamcommunity.com/profiles/76561198272946679/recommended/2361770/",
+   "name": "SHINOBI: Art of Vengeance"
   }
  ],
  "games": [
